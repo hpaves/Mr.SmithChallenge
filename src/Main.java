@@ -1,7 +1,5 @@
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.function.IntBinaryOperator;
 
 public class Main {
     public static int[] plats = new int[13];
@@ -11,8 +9,7 @@ public class Main {
         System.out.println();
 
         int neo = (int) (plats.length / 2);
-        int smith = (int) (Math.random() * plats.length);
-        paheKukkumisKontroll(smith, neo);
+        int smith = smithRespawn(neo);
             Scanner klaviatuur = new Scanner(System.in);
             while (true) {
                 plats[neo] = 1;
@@ -30,7 +27,7 @@ public class Main {
                             neo--;
                             plats[neo + 1] = 0;
                         } else {
-                            System.out.println("Sa ei saa sinna liikuda.");
+                            System.out.println("Sa ei saa sinna liikuda");
                             System.out.println();
                         }
                     } else if (sisend.equals("d")) {
@@ -38,7 +35,7 @@ public class Main {
                             neo++;
                             plats[neo - 1] = 0;
                         } else {
-                            System.out.println("Sa ei saa sinna liikuda.");
+                            System.out.println("Sa ei saa sinna liikuda");
                             System.out.println();
                         }
                     } else if (sisend.equals("s")) {
@@ -47,8 +44,9 @@ public class Main {
                         if (smith == neo - 1 || smith == neo + 1) {
                             plats[smith] = 0;
                             smith = (int) (Math.random() * plats.length);
+                            System.out.println("Tapsid Smithi. Uus asukoht " + smith);
                         } else {
-                            System.out.println("Sa ei saa nii kaugelt lüüa.");
+                            System.out.println("Sa ei saa nii kaugelt lüüa");
                         }
 
                     } else {
@@ -60,23 +58,22 @@ public class Main {
                 if (neo < smith) {
                     smith--;
                     plats[smith + 1] = 0;
+                    System.out.println("Smith liikus");
                 } else if (neo > smith) {
                     smith++;
                     plats[smith - 1] = 0;
+                    System.out.println("Smith liikus");
                 }
 
             }
         }
 
-    private static boolean paheKukkumisKontroll(int smith, int neo) {
-        while (true) {
-            if (smith == neo || smith == neo + 1 || smith == neo - 1) {
-                smith = (int) (Math.random() * plats.length);
-            } else {
-                return false;
-            }
+    private static int smithRespawn(int one) {
+        int two = one;
+        while (two == one || two == one + 1 || two == one - 1) {
+            two = (int) (Math.random() * plats.length);
+            } return two;
         }
-    }
 
 
     private static boolean liikumisKontroll(int neoSamm) {
