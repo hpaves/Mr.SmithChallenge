@@ -4,8 +4,7 @@ import java.util.Scanner;
 public class Main {
     public static int[] plats = new int[13];
     public static void main(String args[]) {
-        System.out.println("Pane end võitluseks valmis!!");
-        System.out.println("Autor: Henri");
+        System.out.println("Mr. Smith Challenge");
         System.out.println();
 
         int neo = (int) (plats.length / 2);
@@ -55,7 +54,17 @@ public class Main {
                     }
                 }
 
-                if (neo < smith) {
+                if (plats[smith] == 2 && neo < smith) {
+                    plats[smith--] = 2;
+                    plats[smith + 1] = 0;
+                } else if (plats[smith] == 2 && neo > smith) {
+                    plats[smith++] = 2;
+                    plats[smith - 1] = 0;
+                }
+
+//                smithMovement(neo);
+
+/*                if (neo < smith) {
                     smith--;
                     plats[smith + 1] = 0;
                     System.out.println("Smith liikus");
@@ -63,10 +72,22 @@ public class Main {
                     smith++;
                     plats[smith - 1] = 0;
                     System.out.println("Smith liikus");
-                }
+                }*/
 
             }
         }
+
+    private static void smithMovement(int one) {
+        for (int i = 0; i < plats.length; i++) {
+            if (plats[i] == 2 && one < i) {
+                plats[i--] = 2;
+                plats[i] = 0;
+            } else if (plats[i] == 2 && one > i) {
+                plats[i++] = 2;
+                plats[i] = 0;
+            }
+        }
+    }
 
     private static int smithRespawn(int one) {
         int two = one;
