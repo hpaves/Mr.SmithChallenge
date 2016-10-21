@@ -16,7 +16,7 @@ public class Main {
                 System.out.println(Arrays.toString(plats));
                 System.out.println();
                 if (neo == smith) {
-                    System.out.println("Mäng läbi!");
+                    System.out.println("Smith sai su kätte. Mäng läbi!");
                     break;
                 } else {
                     System.out.println("Sisesta käik (asd või f):");
@@ -43,7 +43,7 @@ public class Main {
                         if (smith == neo - 1 || smith == neo + 1) {
                             plats[smith] = 0;
                             smith = smithRespawn(neo);
-                            System.out.println("Tapsid Smithi. Uus asukoht " + smith);
+                            System.out.println("Tapsid Smithi. Tema uus asukoht on " + smith);
                         } else {
                             System.out.println("Sa ei saa nii kaugelt lüüa");
                         }
