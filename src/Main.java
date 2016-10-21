@@ -43,7 +43,7 @@ public class Main {
                     } else if (sisend.equals("f")) {
                         if (smith == neo - 1 || smith == neo + 1) {
                             plats[smith] = 0;
-                            smith = (int) (Math.random() * plats.length);
+                            smith = smithRespawn(neo);
                             System.out.println("Tapsid Smithi. Uus asukoht " + smith);
                         } else {
                             System.out.println("Sa ei saa nii kaugelt lüüa");
