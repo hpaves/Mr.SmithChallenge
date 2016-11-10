@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -20,36 +21,39 @@ public class Main extends Application {
 
     int neoPosition = (fieldLength/2);
 
+    boolean smithCollision = false;
+    boolean strikeCollision = false;
+
 /*    boolean right = false;*/
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Rectangle neo = new Rectangle(fighterWidth, fighterHeight);
+        Rectangle neo = new Rectangle(fighterWidth, fighterHeight); //define Neo
         neo.setY(fieldHeight-fighterHeight);
 
-        Rectangle strikeZone = new Rectangle(strikeWidth, strikeHeight);
+        Rectangle strikeZone = new Rectangle(strikeWidth, strikeHeight); //deefine Neo's strike zone
         strikeZone.setY(fieldHeight-strikeHeight);
         strikeZone.setFill(Color.RED);
 
-        Rectangle smith = new Rectangle(fighterWidth, fighterHeight);
+        Rectangle smith = new Rectangle(fighterWidth, fighterHeight); // define Smith
         smith.setY(fieldHeight-fighterHeight);
         smith.setFill(Color.DARKGREY);
 
-        neo.setX(neoPosition);
+        neo.setX(neoPosition); // initial positions
         strikeZone.setX(neoPosition);
         smith.setX(200);
 
-        Pane window = new Pane();
+        Pane window = new Pane(); // interface window, etc
         Scene mainView = new Scene(window, fieldLength, fieldHeight);
 
-        window.getChildren().add(text);
+        window.getChildren().add(text); // adds objects to the interface window
         window.getChildren().add(neo);
         window.getChildren().add(smith);
 
         primaryStage.setScene(mainView);
         primaryStage.show();
-
+                                                // this is for reading keystrokes
         mainView.setOnKeyPressed(event1 -> {    // event on sisendparameeter
             switch (event1.getCode())           // kontrolli programmi toimimist kasvõi iga kolme rea tagant
             {
@@ -75,16 +79,20 @@ public class Main extends Application {
 
         mainView.setOnKeyReleased(event -> text.setText(""));
 
-/*        while (neoPosition < fieldLength) {
-            neoPosition++;
-            neo.setX(neoPosition);
-        }*/
+        // if collision
 
-/*        neo.setOnMouseClicked(event -> { // event on sisendparameeter
-                System.out.println("KLIKK"); // kontrolli programmi toimimist kasvõi iga kolme rea tagant
-                neoPosition++;
-            neo.setX(neoPosition);
-        });*/
+
+
+
+        if (neo.intersects(smith)){
+            smithCollision = true;
+                    text.setText("Mäng läbi");
+        } else {
+            smithCollision = false;
+        }
+
+
+
 
     }
 
