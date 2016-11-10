@@ -19,7 +19,8 @@ public class Main extends Application {
     int strikeWidth = 100;
     int strikeHeight = 100;
 
-    int neoPosition = (fieldLength/2);
+    int neoPosition = (fieldLength / 2);
+    int smithPosition = (200);
 
     boolean smithCollision = false;
     boolean strikeCollision = false;
@@ -30,19 +31,19 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         Rectangle neo = new Rectangle(fighterWidth, fighterHeight); //define Neo
-        neo.setY(fieldHeight-fighterHeight);
+        neo.setY(fieldHeight - fighterHeight);
 
         Rectangle strikeZone = new Rectangle(strikeWidth, strikeHeight); //deefine Neo's strike zone
-        strikeZone.setY(fieldHeight-strikeHeight);
+        strikeZone.setY(fieldHeight - strikeHeight);
         strikeZone.setFill(Color.RED);
 
         Rectangle smith = new Rectangle(fighterWidth, fighterHeight); // define Smith
-        smith.setY(fieldHeight-fighterHeight);
+        smith.setY(fieldHeight - fighterHeight);
         smith.setFill(Color.DARKGREY);
 
         neo.setX(neoPosition); // initial positions
-        strikeZone.setX(neoPosition);
-        smith.setX(200);
+        strikeZone.setX(neoPosition - fighterWidth/2);
+        smith.setX(smithPosition);
 
         Pane window = new Pane(); // interface window, etc
         Scene mainView = new Scene(window, fieldLength, fieldHeight);
@@ -53,7 +54,7 @@ public class Main extends Application {
 
         primaryStage.setScene(mainView);
         primaryStage.show();
-                                                // this is for reading keystrokes
+        // this is for reading keystrokes
         mainView.setOnKeyPressed(event1 -> {    // event on sisendparameeter
             switch (event1.getCode())           // kontrolli programmi toimimist kasvõi iga kolme rea tagant
             {
@@ -61,30 +62,40 @@ public class Main extends Application {
                     text.setText("A");
                     neoPosition = neoPosition - 5;
                     neo.setX(neoPosition);
-                    strikeZone.setX(neoPosition-fighterWidth/2);
+                    strikeZone.setX(neoPosition - fighterWidth / 2);
+                    if (neo.getBoundsInParent().intersects(smith.getBoundsInParent())) {
+                        smithCollision = true;
+                        text.setText("Game over man, game over.");
+                    }
                     break;
                 case D:
                     text.setText("D");
                     neoPosition = neoPosition + 5;
                     neo.setX(neoPosition);
-                    strikeZone.setX(neoPosition-fighterWidth/2);
+                    strikeZone.setX(neoPosition - fighterWidth / 2);
                     break;
                 case ENTER:
                     text.setText("Enter");
                     window.getChildren().add(strikeZone);
                     mainView.setOnKeyReleased(event -> window.getChildren().remove(strikeZone));
+                    if (strikeZone.getBoundsInParent().intersects(smith.getBoundsInParent())) {
+                        strikeCollision = true;
+                        text.setText("Tapsid Smithi");
+                        mainView.setOnKeyReleased(event -> window.getChildren().remove(smith));
+                    }
                     break;
             }
         });
 
-        mainView.setOnKeyReleased(event -> text.setText(""));
+/*        mainView.setOnKeyReleased(event -> text.setText(""));*/
 
         // if collision
 
 
+/*        Rectangle neoBounds = new Rectangle(neoPosition, fieldHeight-fighterHeight, 50, 100);
+        Rectangle smithBounds = new Rectangle(smithPosition, fieldHeight-fighterHeight, 50, 100);
 
-
-        if (neo.intersects(smith)){
+        if (neoBounds.intersects(smithBounds)){
             smithCollision = true;
                     text.setText("Mäng läbi");
         } else {
@@ -95,6 +106,10 @@ public class Main extends Application {
 
 
     }
+
+    public Rectangle bounds() {
+        return (new Rectangle(neoPosition, fieldHeight-fighterHeight, 50, 100));
+    }*/
 
 /*    public void move() {
         if (neoPosition == fieldLength) {
@@ -110,4 +125,5 @@ public class Main extends Application {
         }
 
     }*/
+    }
 }
