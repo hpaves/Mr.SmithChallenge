@@ -1,3 +1,4 @@
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
@@ -21,9 +22,6 @@ public class Main extends Application {
 
     int neoPosition = (fieldLength / 2);
     int smithPosition = (200);
-
-    boolean smithCollision = false;
-    boolean strikeCollision = false;
 
 /*    boolean right = false;*/
 
@@ -54,42 +52,55 @@ public class Main extends Application {
 
         primaryStage.setScene(mainView);
         primaryStage.show();
-        // this is for reading keystrokes
-        mainView.setOnKeyPressed(event1 -> {    // event on sisendparameeter
-            switch (event1.getCode())           // kontrolli programmi toimimist kasvõi iga kolme rea tagant
-            {
-                case A:
-                    text.setText("A");
-                    neoPosition = neoPosition - 5;
-                    neo.setX(neoPosition);
-                    strikeZone.setX(neoPosition - fighterWidth / 2);
+
+        final long startNanoTime = System.nanoTime();
+
+        new AnimationTimer() {
+            public void handle(long currentNanoTime) {
+                double t = (currentNanoTime - startNanoTime) / 1000000000.0;
+
+                // this is for reading keystrokes
+                mainView.setOnKeyPressed(event1 -> {    // event on sisendparameeter
+                    switch (event1.getCode())           // kontrolli programmi toimimist kasvõi iga kolme rea tagant
+                    {
+                        case A:
+                            text.setText("A");
+                            neoPosition = neoPosition - 5;
+                            neo.setX(neoPosition);
+                            strikeZone.setX(neoPosition - fighterWidth / 2);
+                            break;
+                        case D:
+                            text.setText("D");
+                            neoPosition = neoPosition + 5;
+                            neo.setX(neoPosition);
+                            strikeZone.setX(neoPosition - fighterWidth / 2);
+
+                            break;
+                        case ENTER:
+                            text.setText("Enter");
+                            window.getChildren().add(strikeZone); //collision detction
+                            mainView.setOnKeyReleased(event -> window.getChildren().remove(strikeZone));
+                            if (strikeZone.getBoundsInParent().intersects(smith.getBoundsInParent())) {
+                                text.setText("Tapsid Smithi");
+                                window.getChildren().remove(smith);
+                            }
+                            break;
+                    }
+
                     if (neo.getBoundsInParent().intersects(smith.getBoundsInParent())) {
-                        smithCollision = true;
                         text.setText("Game over man, game over.");
+
                     }
-                    break;
-                case D:
-                    text.setText("D");
-                    neoPosition = neoPosition + 5;
-                    neo.setX(neoPosition);
-                    strikeZone.setX(neoPosition - fighterWidth / 2);
-                    break;
-                case ENTER:
-                    text.setText("Enter");
-                    window.getChildren().add(strikeZone);
-                    mainView.setOnKeyReleased(event -> window.getChildren().remove(strikeZone));
-                    if (strikeZone.getBoundsInParent().intersects(smith.getBoundsInParent())) {
-                        strikeCollision = true;
-                        text.setText("Tapsid Smithi");
-                        mainView.setOnKeyReleased(event -> window.getChildren().remove(smith));
-                    }
-                    break;
+                });
+
             }
-        });
+        }.start();
+
 
 /*        mainView.setOnKeyReleased(event -> text.setText(""));*/
 
-        // if collision
+        // smith angriness level
+        // you reached smith angriness level n
 
 
 /*        Rectangle neoBounds = new Rectangle(neoPosition, fieldHeight-fighterHeight, 50, 100);
