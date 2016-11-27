@@ -35,20 +35,20 @@ public class Main extends Application {
         strikeZone.setY(fieldHeight - strikeHeight);
         strikeZone.setFill(Color.RED);
 
-        Rectangle smith = new Rectangle(fighterWidth, fighterHeight); // define Smith
-        smith.setY(fieldHeight - fighterHeight);
-        smith.setFill(Color.DARKGREY);
+        final Rectangle[] smith = {new Rectangle(fighterWidth, fighterHeight)}; // define Smith
+        smith[0].setY(fieldHeight - fighterHeight);
+        smith[0].setFill(Color.DARKGREY);
 
         neo.setX(neoPosition); // initial positions
         strikeZone.setX(neoPosition - fighterWidth/2);
-        smith.setX(smithPosition);
+        smith[0].setX(smithPosition);
 
         Pane window = new Pane(); // interface window, etc
         Scene mainView = new Scene(window, fieldLength, fieldHeight);
 
         window.getChildren().add(text); // adds objects to the interface window
         window.getChildren().add(neo);
-        window.getChildren().add(smith);
+        window.getChildren().add(smith[0]);
 
         primaryStage.setScene(mainView);
         primaryStage.show();
@@ -80,14 +80,15 @@ public class Main extends Application {
                             text.setText("Enter");
                             window.getChildren().add(strikeZone); //collision detction
                             mainView.setOnKeyReleased(event -> window.getChildren().remove(strikeZone));
-                            if (strikeZone.getBoundsInParent().intersects(smith.getBoundsInParent())) {
+                            if (strikeZone.getBoundsInParent().intersects(smith[0].getBoundsInParent())) {
                                 text.setText("Tapsid Smithi");
-                                window.getChildren().remove(smith);
+                                window.getChildren().remove(smith[0]);
+                                smith[0] = null; // miks smith peab one final element array olema, et asi töötaks?
                             }
                             break;
                     }
 
-                    if (neo.getBoundsInParent().intersects(smith.getBoundsInParent())) {
+                    if (neo.getBoundsInParent().intersects(smith[0].getBoundsInParent())) {
                         text.setText("Game over man, game over.");
 
                     }
