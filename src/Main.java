@@ -1,6 +1,5 @@
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -23,24 +22,25 @@ public class Main extends Application {
     int neoPosition = (fieldLength / 2);
     int smithPosition = (200);
 
-/*    boolean right = false;*/
-
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Rectangle neo = new Rectangle(fighterWidth, fighterHeight); //define Neo
-        neo.setY(fieldHeight - fighterHeight);
+//        Rectangle neo = new Rectangle(fighterWidth, fighterHeight); //define Neo
+//        neo.setY(fieldHeight - fighterHeight);
+
+        Fighter neo = new Fighter();
 
         Rectangle strikeZone = new Rectangle(strikeWidth, strikeHeight); //define Neo's strike zone
         strikeZone.setY(fieldHeight - strikeHeight);
         strikeZone.setFill(Color.RED);
 
-        final Rectangle[] smith = {new Rectangle(fighterWidth, fighterHeight)}; // define Smith
+        // define Smith
+        Rectangle[] smith = {new Rectangle(fighterWidth, fighterHeight)}; // this line began with "final" which I removed
         smith[0].setY(fieldHeight - fighterHeight);
         smith[0].setFill(Color.DARKGREY);
 
         neo.setX(neoPosition); // initial positions
-        strikeZone.setX(neoPosition - fighterWidth/2);
+        strikeZone.setX(neoPosition - fighterWidth / 2);
         smith[0].setX(smithPosition);
 
         Pane window = new Pane(); // interface window, etc
@@ -68,7 +68,6 @@ public class Main extends Application {
                     neoPosition = neoPosition + 5;
                     neo.setX(neoPosition);
                     strikeZone.setX(neoPosition - fighterWidth / 2);
-
                     break;
                 case ENTER:
                     text.setText("Enter");
@@ -111,46 +110,11 @@ public class Main extends Application {
                 }
             }
         }.start();
-
+    }
 
 /*        mainView.setOnKeyReleased(event -> text.setText(""));*/
 
         // smith angriness level
         // you reached smith angriness level n
 
-
-/*        Rectangle neoBounds = new Rectangle(neoPosition, fieldHeight-fighterHeight, 50, 100);
-        Rectangle smithBounds = new Rectangle(smithPosition, fieldHeight-fighterHeight, 50, 100);
-
-        if (neoBounds.intersects(smithBounds)){
-            smithCollision = true;
-                    text.setText("Mäng läbi");
-        } else {
-            smithCollision = false;
-        }
-
-
-
-
-    }
-
-    public Rectangle bounds() {
-        return (new Rectangle(neoPosition, fieldHeight-fighterHeight, 50, 100));
-    }*/
-
-/*    public void move() {
-        if (neoPosition == fieldLength) {
-            right = true;
-        }
-        if (neoPosition == 0) {
-            right = false;
-        }
-        if (right) {
-            neoPosition++;
-        } else {
-            neoPosition--;
-        }
-
-    }*/
-    }
 }
