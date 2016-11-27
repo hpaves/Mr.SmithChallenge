@@ -31,7 +31,7 @@ public class Main extends Application {
         Rectangle neo = new Rectangle(fighterWidth, fighterHeight); //define Neo
         neo.setY(fieldHeight - fighterHeight);
 
-        Rectangle strikeZone = new Rectangle(strikeWidth, strikeHeight); //deefine Neo's strike zone
+        Rectangle strikeZone = new Rectangle(strikeWidth, strikeHeight); //define Neo's strike zone
         strikeZone.setY(fieldHeight - strikeHeight);
         strikeZone.setFill(Color.RED);
 
@@ -59,6 +59,13 @@ public class Main extends Application {
             public void handle(long currentNanoTime) {
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
 
+                if (smithPosition < neoPosition) {
+                    smithPosition++;
+                    smith[0].setX(smithPosition);
+                } else if (smithPosition > neoPosition) {
+                    smithPosition--;
+                    smith[0].setX(smithPosition);
+                }
                 // this is for reading keystrokes
                 mainView.setOnKeyPressed(event1 -> {    // event on sisendparameeter
                     switch (event1.getCode())           // kontrolli programmi toimimist kasvõi iga kolme rea tagant
@@ -88,12 +95,13 @@ public class Main extends Application {
                             break;
                     }
 
-                    if (neo.getBoundsInParent().intersects(smith[0].getBoundsInParent())) {
-                        text.setText("Game over man, game over.");
 
-                    }
                 });
 
+                if (neo.getBoundsInParent().intersects(smith[0].getBoundsInParent())) {
+                    text.setText("Game over man, game over.");
+
+                }
             }
         }.start();
 
