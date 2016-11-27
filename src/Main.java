@@ -53,6 +53,33 @@ public class Main extends Application {
         primaryStage.setScene(mainView);
         primaryStage.show();
 
+        // this is for reading keystrokes
+        mainView.setOnKeyPressed(event1 -> {    // event on sisendparameeter
+            switch (event1.getCode())           // kontrolli programmi toimimist kasvõi iga kolme rea tagant
+            {
+                case A:
+                    text.setText("A");
+                    neoPosition = neoPosition - 5;
+                    neo.setX(neoPosition);
+                    strikeZone.setX(neoPosition - fighterWidth / 2);
+                    break;
+                case D:
+                    text.setText("D");
+                    neoPosition = neoPosition + 5;
+                    neo.setX(neoPosition);
+                    strikeZone.setX(neoPosition - fighterWidth / 2);
+
+                    break;
+                case ENTER:
+                    text.setText("Enter");
+                    window.getChildren().add(strikeZone); //collision detction
+                    mainView.setOnKeyReleased(event -> window.getChildren().remove(strikeZone));
+                    break;
+            }
+
+
+        });
+
         final long startNanoTime = System.nanoTime();
 
         new AnimationTimer() {
@@ -66,37 +93,12 @@ public class Main extends Application {
                     smithPosition--;
                     smith[0].setX(smithPosition);
                 }
-                // this is for reading keystrokes
-                mainView.setOnKeyPressed(event1 -> {    // event on sisendparameeter
-                    switch (event1.getCode())           // kontrolli programmi toimimist kasvõi iga kolme rea tagant
-                    {
-                        case A:
-                            text.setText("A");
-                            neoPosition = neoPosition - 5;
-                            neo.setX(neoPosition);
-                            strikeZone.setX(neoPosition - fighterWidth / 2);
-                            break;
-                        case D:
-                            text.setText("D");
-                            neoPosition = neoPosition + 5;
-                            neo.setX(neoPosition);
-                            strikeZone.setX(neoPosition - fighterWidth / 2);
 
-                            break;
-                        case ENTER:
-                            text.setText("Enter");
-                            window.getChildren().add(strikeZone); //collision detction
-                            mainView.setOnKeyReleased(event -> window.getChildren().remove(strikeZone));
-                            if (strikeZone.getBoundsInParent().intersects(smith[0].getBoundsInParent())) {
-                                text.setText("Tapsid Smithi");
-                                window.getChildren().remove(smith[0]);
-                                smith[0] = null; // miks smith peab one final element array olema, et asi töötaks?
-                            }
-                            break;
-                    }
-
-
-                });
+                if (strikeZone.getBoundsInParent().intersects(smith[0].getBoundsInParent())) {
+                    text.setText("Tapsid Smithi");
+                    window.getChildren().remove(smith[0]);
+                    smith[0] = null; // miks smith peab one final element array olema, et asi töötaks?
+                }
 
                 if (neo.getBoundsInParent().intersects(smith[0].getBoundsInParent())) {
                     text.setText("Game over man, game over.");
