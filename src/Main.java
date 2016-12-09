@@ -28,8 +28,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Rectangle neo = new Rectangle(fighterWidth, fighterHeight); //define Neo
-        neo.setY(fieldHeight - fighterHeight);
+//        Rectangle neo = new Rectangle(fighterWidth, fighterHeight); //define Neo
+//        neo.setY(fieldHeight - fighterHeight);
+
+        Fighter neo = new Fighter();
 
         Rectangle strikeZone = new Rectangle(strikeWidth, strikeHeight); //define Neo's strike zone
         strikeZone.setY(fieldHeight - strikeHeight);
