@@ -10,7 +10,12 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    Text text = new Text(100, 100, "");
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        new Brawl(); //new game
+    }
+}
+/*    Text text = new Text(100, 100, "");
     int fieldLength = 800;
     int fieldHeight = 300;
 
@@ -23,15 +28,13 @@ public class Main extends Application {
     int neoPosition = (fieldLength / 2);
     int smithPosition = (200);
 
-/*    boolean right = false;*/
-
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-//        Rectangle neo = new Rectangle(fighterWidth, fighterHeight); //define Neo
-//        neo.setY(fieldHeight - fighterHeight);
+        Rectangle neo = new Rectangle(fighterWidth, fighterHeight); //define Neo
+        neo.setY(fieldHeight - fighterHeight);
 
-        Fighter neo = new Fighter();
+//        Fighter neo = new Fighter();
 
         Rectangle strikeZone = new Rectangle(strikeWidth, strikeHeight); //define Neo's strike zone
         strikeZone.setY(fieldHeight - strikeHeight);
@@ -93,7 +96,7 @@ public class Main extends Application {
 
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
-                double t = (currentNanoTime - startNanoTime) / 1000000000.0;
+                double t = (currentNanoTime - startNanoTime) / 1000000000.0; //võõras kood, viide panna!!!!!!!!!!!!
 
                 if (smith[0] != null) {
                     if (smithPosition < neoPosition) {
@@ -117,4 +120,4 @@ public class Main extends Application {
         // smith angriness level
         // you reached smith angriness level n
     }
-}
+}*/
