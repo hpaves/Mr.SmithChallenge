@@ -1,6 +1,6 @@
+import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -15,15 +15,16 @@ public class Brawl {
     int fieldLength = 800;
     int fieldHeight = 300;
     Neo neo;
-    Fighter strikeZone;
+    StrikeZone strikeZone;
+    Smith smith;
 //    public int fighterPosition = 500;
 
     public Brawl(){
         System.out.println("Brawl constructor");
         makeBrawl();
-        addElements();
-        addStrikeZone();
-        readKeys(neo);
+        addNeo();
+        addSmith();
+        readKeys(neo, strikeZone);
     }
 
     public void makeBrawl(){
@@ -34,19 +35,23 @@ public class Brawl {
         primaryStage.show();
     }
 
-    public void addElements(){ //
+    public void addNeo(){ //
         System.out.println("Brawl addElemets");
         text = new Text(100, 100, "test");
         window.getChildren().add(text); // adds objects to the interface window
         neo = new Neo();
+        strikeZone = new StrikeZone();
         System.out.println("Lisan fighteri");
         window.getChildren().add(neo);
+//        window.getChildren().add(strikeZone);
 //        window.getChildren().add(smith[0]);
     }
 
-    public void addStrikeZone(){
-        // strikeZone = new Neo();
+    public void addSmith(){
+        smith = new Smith();
+        window.getChildren().add(smith);
     }
+
 /*    public void addStrikeZone(){ //
         strikeZone = new Fighter();
         window.getChildren().add(strikeZone);
@@ -61,7 +66,7 @@ public class Brawl {
         this.neoPosition = this.neoPosition + value;
     }
 */
-    public void readKeys(Fighter neo){
+    public void readKeys(Neo neo, StrikeZone strikeZone){
         // this is for reading keystrokes
         mainView.setOnKeyPressed(event1 -> {    // event on sisendparameeter
             switch (event1.getCode())           // kontrolli programmi toimimist kasvõi iga kolme rea tagant
@@ -69,54 +74,53 @@ public class Brawl {
                 case A:
                     text.setText("A");
                     neo.fighterMovement(-5);
+                    strikeZone.fighterMovement(-5);
                     //zone.fighterMovement(-5);
                     break;
                 case D:
                     text.setText("D");
                     neo.fighterMovement(+5);
+                    strikeZone.fighterMovement(+5);
                     break;
                 case ENTER:
                     text.setText("Enter");
-
-//                    window.getChildren().add(Fighter); //collision detction
-/*                    mainView.setOnKeyReleased(event -> window.getChildren().remove(strikeZone));
-                    if (smith[0] != null) {
-                        if (strikeZone.getBoundsInParent().intersects(smith[0].getBoundsInParent())) {
+                    window.getChildren().add(strikeZone); //collision detction
+                    mainView.setOnKeyReleased(event -> window.getChildren().remove(strikeZone));
+                    if (smith != null) {
+                        if (strikeZone.getBoundsInParent().intersects(smith.getBoundsInParent())) {
                             text.setText("Tapsid Smithi");
-                            window.getChildren().remove(smith[0]);
-                            smith[0] = null; // miks smith peab one final element array olema, et asi töötaks?
+                            window.getChildren().remove(smith);
+                            smith = null; // miks smith peab one final element array olema, et asi töötaks?
                         }
-                    }*/
+                    }
                     break;
             }
 
 
         });
 
-/*        final long startNanoTime = System.nanoTime();
+        final long startNanoTime = System.nanoTime();
 
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0; //võõras kood, viide panna!!!!!!!!!!!!
 
-                if (smith[0] != null) {
-                    if (smithPosition < neoPosition) {
-                        smithPosition++;
-                        smith[0].setX(smithPosition);
-                    } else if (smithPosition > neoPosition) {
-                        smithPosition--;
-                        smith[0].setX(smithPosition);
+                if (smith != null) {
+                    if (smith.getX() < neo.getX()) {
+                        smith.fighterMovement(+1);
+                    } else if (smith.getX() > neo.getX()) {
+                        smith.fighterMovement(-1);
                     }
                 }
 
-                if (smith[0] != null) {
-                    if (neo.getBoundsInParent().intersects(smith[0].getBoundsInParent())) {
+                if (smith != null) {
+                    if (neo.getBoundsInParent().intersects(smith.getBoundsInParent())) {
                         text.setText("Game over man, game over.");
 
                     }
                 }
             }
-        }.start();*/
+        }.start();
 
     }
 }
