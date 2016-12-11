@@ -12,7 +12,21 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        new Brawl(); //new game
+        Brawl brawl = new Brawl();
+        //new game
+        //
+
+/*        if(brawl.game_over()) {
+            System.out.println("Mäng ei ole läbi");
+            //Brawl.newgame();
+
+        }
+        else {
+            brawl.moveCharacters();
+            brawl.checkCollision();
+            brawl.draw();
+        }*/
+
     }
 }
 /*    Text text = new Text(100, 100, "");

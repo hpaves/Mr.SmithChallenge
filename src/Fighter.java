@@ -1,31 +1,34 @@
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class Fighter{
-
-    public int fighterWidth = 50;
-    public int fighterHeight = 100;
-    private int position;
-    public Rectangle fighter;
+public class Fighter extends Rectangle {
 
     public Fighter () {
-        fighter = new Rectangle(50, 100, 20, 20);
-//        fighter.setY(fieldHeight - fighterHeight);
-        fighter.setX(300);
-        fighter.setY(100);
-        fighter.setFill(Color.GREEN);
-        System.out.println("jõudsin siia");
+//        setY(fieldHeight - fighterHeight);
+        setX(400);
+        setY(200);
+        setWidth(50);
+        setHeight(100);
+        System.out.println("jõudsin fighteri konstruktorisse");
     }
 
+    public void fighterMovement(int value) {
+        setX(getX() + value);
+        //        Math.min(344,5566);
+    }
 
+/*    public strikeZone () {
+//        setY(fieldHeight - fighterHeight);
+        setX(fighterPosition-50);
+        setY(200);
+        setWidth(100);
+        setHeight(100);
+        setFill(Color.RED);
+        System.out.println("strikeZone!!!");
+    }*/
 
-
-    public void setX(int x) {
+/*    public void setX(int x) {
         this.position = x;
-    }
-
-    public Rectangle getFighter(){
-        return fighter;
-    }
+    }*/
 
 }
