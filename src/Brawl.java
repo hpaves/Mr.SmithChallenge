@@ -17,7 +17,6 @@ public class Brawl {
     Neo neo;
     StrikeZone strikeZone;
     Smith smith;
-//    public int fighterPosition = 500;
 
     public Brawl(){
         System.out.println("Brawl constructor");
@@ -43,8 +42,6 @@ public class Brawl {
         strikeZone = new StrikeZone();
         System.out.println("Lisan fighteri");
         window.getChildren().add(neo);
-//        window.getChildren().add(strikeZone);
-//        window.getChildren().add(smith[0]);
     }
 
     public void addSmith(){
@@ -52,20 +49,6 @@ public class Brawl {
         window.getChildren().add(smith);
     }
 
-/*    public void addStrikeZone(){ //
-        strikeZone = new Fighter();
-        window.getChildren().add(strikeZone);
-        System.out.println("Lisan strikezone");
-//        window.getChildren().add(smith[0]);
-        strikeZone.setFill(Color.RED);
-        strikeZone.setWidth(10);
-        strikeZone.setX(neo.getX());
-    }*/
-
-/*    public void neoMovement(int value) {
-        this.neoPosition = this.neoPosition + value;
-    }
-*/
     public void readKeys(Neo neo, StrikeZone strikeZone){
         // this is for reading keystrokes
         mainView.setOnKeyPressed(event1 -> {    // event on sisendparameeter

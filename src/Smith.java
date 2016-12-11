@@ -7,9 +7,4 @@ public class Smith extends Fighter {
         setFill(Color.DARKGRAY);
         System.out.println("smith konstruktor " + getX());
     }
-
-/*    public boolean StrikeZone () {
-        System.out.println("strikezone!!");
-        return true;
-    }*/
 }

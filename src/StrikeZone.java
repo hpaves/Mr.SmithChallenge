@@ -8,9 +8,4 @@ public class StrikeZone extends Neo {
         setFill(Color.RED);
         System.out.println("strikezone konstruktor " + getX());
     }
-
-/*    public boolean StrikeZone () {
-        System.out.println("strikezone!!");
-        return true;
-    }*/
 }
