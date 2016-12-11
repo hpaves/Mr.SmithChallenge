@@ -1,11 +1,6 @@
-import javafx.animation.AnimationTimer;
-import javafx.application.Application;
-import javafx.geometry.Bounds;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -19,13 +14,15 @@ public class Brawl {
     Text text;
     int fieldLength = 800;
     int fieldHeight = 300;
+    Neo neo;
+    Fighter strikeZone;
 //    public int fighterPosition = 500;
 
     public Brawl(){
         System.out.println("Brawl constructor");
         makeBrawl();
-        Fighter neo = addElements();
-        Fighter zone = insertStrikeZone();
+        addElements();
+        addStrikeZone();
         readKeys(neo);
     }
 
@@ -37,27 +34,28 @@ public class Brawl {
         primaryStage.show();
     }
 
-    public Fighter addElements(){ //
+    public void addElements(){ //
         System.out.println("Brawl addElemets");
         text = new Text(100, 100, "test");
         window.getChildren().add(text); // adds objects to the interface window
-        Fighter neo = new Fighter();
+        neo = new Neo();
         System.out.println("Lisan fighteri");
         window.getChildren().add(neo);
 //        window.getChildren().add(smith[0]);
-        return neo;
-
     }
 
-    public Fighter insertStrikeZone(){ //
-        Fighter zone = new Fighter();
-        window.getChildren().add(zone);
+    public void addStrikeZone(){
+        // strikeZone = new Neo();
+    }
+/*    public void addStrikeZone(){ //
+        strikeZone = new Fighter();
+        window.getChildren().add(strikeZone);
         System.out.println("Lisan strikezone");
 //        window.getChildren().add(smith[0]);
-        zone.setFill(Color.RED);
-        zone.setWidth(10);
-        return zone;
-    }
+        strikeZone.setFill(Color.RED);
+        strikeZone.setWidth(10);
+        strikeZone.setX(neo.getX());
+    }*/
 
 /*    public void neoMovement(int value) {
         this.neoPosition = this.neoPosition + value;

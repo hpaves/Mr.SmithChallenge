@@ -14,8 +14,11 @@ public class Fighter extends Rectangle {
 
     public void fighterMovement(int value) {
         setX(getX() + value);
+        System.out.println(getX());
         //        Math.min(344,5566);
     }
+
+
 
 /*    public strikeZone () {
 //        setY(fieldHeight - fighterHeight);
