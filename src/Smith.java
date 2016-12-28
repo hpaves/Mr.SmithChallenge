@@ -3,7 +3,15 @@ import javafx.scene.paint.Color;
 public class Smith extends Fighter {
 
     public Smith () {
-        setX(0);
+        int smithLocation;
+        int smithRandomizer = (int) (Math.random() * 2);
+        if (smithRandomizer == 0) {
+            smithLocation = 0;
+        } else {
+            smithLocation = 750;
+        }
+        setX(smithLocation);
+        System.out.println("smith algne asukoht on " + smithLocation);
         setFill(Color.DARKGRAY);
         System.out.println("smith konstruktor " + getX());
     }

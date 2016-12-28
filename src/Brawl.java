@@ -12,7 +12,7 @@ public class Brawl {
 //    public Boolean game_over = Boolean.FALSE;
 
     Text text;
-    int fieldLength = 800;
+    public int fieldLength = 800;
     int fieldHeight = 300;
     Neo neo;
     StrikeZone strikeZone;
