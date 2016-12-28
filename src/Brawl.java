@@ -55,17 +55,21 @@ public class Brawl {
             switch (event1.getCode())           // kontrolli programmi toimimist kasvõi iga kolme rea tagant
             {
                 case A:
+                case LEFT: {
                     text.setText("A");
                     neo.fighterMovement(-5);
                     strikeZone.fighterMovement(-5);
-                    //zone.fighterMovement(-5);
                     break;
+                }
                 case D:
+                case RIGHT: {
                     text.setText("D");
                     neo.fighterMovement(+5);
                     strikeZone.fighterMovement(+5);
                     break;
+                }
                 case ENTER:
+                case SPACE: {
                     text.setText("Enter");
                     window.getChildren().add(strikeZone); //collision detction
                     mainView.setOnKeyReleased(event -> window.getChildren().remove(strikeZone));
@@ -74,9 +78,11 @@ public class Brawl {
                             text.setText("Tapsid Smithi");
                             window.getChildren().remove(smith);
                             smith = null; // miks smith peab one final element array olema, et asi töötaks?
+                            addSmith();
                         }
                     }
                     break;
+                }
             }
 
 
@@ -85,8 +91,8 @@ public class Brawl {
         final long startNanoTime = System.nanoTime();
 
         new AnimationTimer() {
-            public void handle(long currentNanoTime) {
-                double t = (currentNanoTime - startNanoTime) / 1000000000.0; //võõras kood, viide panna!!!!!!!!!!!!
+            public void handle(long currentNanoTime) {                          // AnimationTimer code borrowed from gamedevelopment.tutsplus.com
+                double t = (currentNanoTime - startNanoTime) / 1000000000.0;    // https://gamedevelopment.tutsplus.com/tutorials/introduction-to-javafx-for-game-development--cms-23835
 
                 if (smith != null) {
                     if (smith.getX() < neo.getX()) {
@@ -97,7 +103,7 @@ public class Brawl {
                 }
 
                 if (smith != null) {
-                    if (neo.getBoundsInParent().intersects(smith.getBoundsInParent())) {
+                    if (neo.getBoundsInParent().intersects(smith.getBoundsInParent())) { // gracious help from Krister Viirsaar
                         text.setText("Game over man, game over.");
 
                     }
