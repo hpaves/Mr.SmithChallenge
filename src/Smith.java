@@ -8,7 +8,7 @@ public class Smith extends Fighter {
         if (smithRandomizer == 0) {
             smithLocation = 0;
         } else {
-            smithLocation = 750;
+            smithLocation = (int) (Brawl.fieldLength - getWidth());
         }
         setX(smithLocation);
         setFill(Color.DARKGRAY);

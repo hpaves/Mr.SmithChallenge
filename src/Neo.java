@@ -1,3 +1,4 @@
+import javafx.scene.shape.Polygon;
 
 public class Neo extends Fighter {
 

@@ -1,6 +1,7 @@
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -10,12 +11,14 @@ public class Brawl {
     Stage primaryStage = new Stage();
 
     Text text;
-    public int fieldLength = 800;
-    int fieldHeight = 300;
+    public static int fieldLength = 800;
+    public static int fieldHeight = 300;
     int smithCounter = 0;
     int smithSpeed = 3;
     Neo neo;
+    public static boolean faceLeft = true;
     StrikeZone strikeZone;
+    NeoFace neoFace;
     Smith smith;
 
     public Brawl(){
@@ -35,13 +38,14 @@ public class Brawl {
     }
 
     public void addNeo(){ //
-        System.out.println("Brawl addElemets");
         text = new Text(100, 100, "test");
         window.getChildren().add(text); // adds objects to the interface window
         neo = new Neo();
         strikeZone = new StrikeZone();
-        System.out.println("Lisan fighteri");
         window.getChildren().add(neo);
+        neoFace = new NeoFace();
+        window.getChildren().add(neoFace);
+        //window.getChildren().add(polygon);
     }
 
     public void addSmith(){
@@ -58,6 +62,7 @@ public class Brawl {
                 case LEFT: {
                     text.setText("A");
                     neo.fighterMovement(-5);
+                    neoFace.fighterMovement(-5);
                     strikeZone.fighterMovement(-5);
                     break;
                 }
@@ -65,6 +70,7 @@ public class Brawl {
                 case RIGHT: {
                     text.setText("D");
                     neo.fighterMovement(+5);
+                    neoFace.fighterMovement(+5);
                     strikeZone.fighterMovement(+5);
                     break;
                 }
