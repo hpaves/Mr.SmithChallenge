@@ -51,6 +51,17 @@ public class Brawl {
         window.getChildren().add(smith);
     }
 
+    public void setOrientation(){
+        if (faceLeft == true) {
+            neoShades.setShadesLocation((int) neo.getX());
+            strikeZone.setStrikeZoneLocation((int) ((int) neo.getX() - neo.getWidth()));
+        } else {
+            neoShades.setShadesLocation((int) (neo.getX() + neo.getWidth() / 2));
+            strikeZone.setStrikeZoneLocation((int) ((int) neo.getX() + neo.getWidth()));
+
+        }
+    }
+
     public void readKeys(Neo neo, StrikeZone strikeZone){
         // this is for reading keystrokes
         mainView.setOnKeyPressed(event1 -> {    // event on sisendparameeter
@@ -86,7 +97,6 @@ public class Brawl {
 //                            smithSpeed = (int) (1 + smithCounter/3);
                             System.out.println(smithCounter);
                             addSmith();
-                            addSmith();
 //                            if (smithCounter == 3) {
 //                                smithSpeed++;
 //                            }
@@ -97,11 +107,7 @@ public class Brawl {
                 }
             }
 
-            if (faceLeft == true) {
-                neoShades.setShadesLocation((int) neo.getX());
-            } else {
-                neoShades.setShadesLocation((int) (neo.getX() + neo.getWidth() / 2));
-            }
+        setOrientation();
 
         });
 
