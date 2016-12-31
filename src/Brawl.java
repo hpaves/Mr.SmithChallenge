@@ -9,11 +9,11 @@ public class Brawl {
     Scene mainView;
     Stage primaryStage = new Stage();
 
-//    public Boolean game_over = Boolean.FALSE;
-
     Text text;
     public int fieldLength = 800;
     int fieldHeight = 300;
+    int smithCounter = 0;
+    int smithSpeed = 3;
     Neo neo;
     StrikeZone strikeZone;
     Smith smith;
@@ -74,11 +74,19 @@ public class Brawl {
                     window.getChildren().add(strikeZone); //collision detction
                     mainView.setOnKeyReleased(event -> window.getChildren().remove(strikeZone));
                     if (smith != null) {
-                        if (strikeZone.getBoundsInParent().intersects(smith.getBoundsInParent())) {
+                        if (strikeZone.getBoundsInParent().intersects(smith.getBoundsInParent())) { // gracious help from Krister Viirsaar
                             text.setText("Tapsid Smithi");
                             window.getChildren().remove(smith);
-                            smith = null; // miks smith peab one final element array olema, et asi töötaks?
+                            smith = null;
+                            smithCounter++;
+//                            smithSpeed = (int) (1 + smithCounter/3);
+                            System.out.println(smithCounter);
                             addSmith();
+                            addSmith();
+//                            if (smithCounter == 3) {
+//                                smithSpeed++;
+//                            }
+
                         }
                     }
                     break;
@@ -96,9 +104,9 @@ public class Brawl {
 
                 if (smith != null) {
                     if (smith.getX() < neo.getX()) {
-                        smith.fighterMovement(+1);
+                        smith.fighterMovement(+smithSpeed);
                     } else if (smith.getX() > neo.getX()) {
-                        smith.fighterMovement(-1);
+                        smith.fighterMovement(-smithSpeed);
                     }
                 }
 
@@ -108,16 +116,9 @@ public class Brawl {
 
                     }
                 }
+
             }
         }.start();
 
     }
 }
-
-/*    public Boolean game_over() {
-        return game_over;
-    }
-
-    public void moveChracters() {
-
-    }*/

@@ -11,8 +11,8 @@ public class Smith extends Fighter {
             smithLocation = 750;
         }
         setX(smithLocation);
-        System.out.println("smith algne asukoht on " + smithLocation);
         setFill(Color.DARKGRAY);
         System.out.println("smith konstruktor " + getX());
     }
+
 }

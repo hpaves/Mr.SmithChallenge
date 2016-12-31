@@ -5,7 +5,7 @@ public class Neo extends Fighter {
         System.out.println("neo konstruktor " + getX());
     }
 
-/*    public boolean StrikeZone () {
+    /*    public boolean StrikeZone () {
         System.out.println("strikezone!!");
         return true;
     }*/
