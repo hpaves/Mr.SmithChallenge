@@ -1,7 +1,6 @@
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -18,7 +17,7 @@ public class Brawl {
     Neo neo;
     public static boolean faceLeft = true;
     StrikeZone strikeZone;
-    NeoFace neoFace;
+    NeoShades neoShades;
     Smith smith;
 
     public Brawl(){
@@ -43,9 +42,8 @@ public class Brawl {
         neo = new Neo();
         strikeZone = new StrikeZone();
         window.getChildren().add(neo);
-        neoFace = new NeoFace();
-        window.getChildren().add(neoFace);
-        //window.getChildren().add(polygon);
+        neoShades = new NeoShades();
+        window.getChildren().add(neoShades);
     }
 
     public void addSmith(){
@@ -62,7 +60,7 @@ public class Brawl {
                 case LEFT: {
                     text.setText("A");
                     neo.fighterMovement(-5);
-                    neoFace.fighterMovement(-5);
+                    faceLeft = true;
                     strikeZone.fighterMovement(-5);
                     break;
                 }
@@ -70,7 +68,7 @@ public class Brawl {
                 case RIGHT: {
                     text.setText("D");
                     neo.fighterMovement(+5);
-                    neoFace.fighterMovement(+5);
+                    faceLeft = false;
                     strikeZone.fighterMovement(+5);
                     break;
                 }
@@ -99,6 +97,11 @@ public class Brawl {
                 }
             }
 
+            if (faceLeft == true) {
+                neoShades.setShadesLocation((int) neo.getX());
+            } else {
+                neoShades.setShadesLocation((int) (neo.getX() + neo.getWidth() / 2));
+            }
 
         });
 
