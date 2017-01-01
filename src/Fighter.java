@@ -10,8 +10,19 @@ public class Fighter extends Rectangle {
         System.out.println("jõudsin fighteri konstruktorisse");
     }
 
-    public void fighterMovement(int value) {
-        setX(getX() + value);
+    public void fighterMovement(int movementMod) {
+        int location = (int) getX();
+        if ((location + movementMod) >= 0 && (location + movementMod) <= Brawl.fieldLength) {
+            setX(location + movementMod);
+            System.out.println(getX());
+        } else if ((location + movementMod) < 0) {
+            setX(0);
+            System.out.println(getX());
+        } else if ((location + movementMod) > Brawl.fieldLength) {
+            setX(Brawl.fieldLength - getWidth());
+            System.out.println(getX());
+        }
         //        Math.min(344,5566);
     }
+
 }

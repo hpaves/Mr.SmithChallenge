@@ -1,5 +1,7 @@
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -8,6 +10,8 @@ public class Brawl {
     Pane window;
     Scene mainView;
     Stage primaryStage = new Stage();
+
+    AnimationTimer animationTimer;
 
     Text text;
     public static int fieldLength = 800;
@@ -18,7 +22,6 @@ public class Brawl {
     public static boolean faceLeft = true;
     StrikeZone strikeZone;
     NeoShades neoShades;
-//    Smith smith;
     Smith[] smithArray = new Smith[10];
 
     public Brawl(){
@@ -48,7 +51,6 @@ public class Brawl {
     }
 
     public void addSmith(int i){
-//        smith = new Smith();
         smithArray[i] = new Smith();
         window.getChildren().add(smithArray[i]);
     }
@@ -60,14 +62,18 @@ public class Brawl {
         } else {
             neoShades.setShadesLocation((int) (neo.getX() + neo.getWidth() / 2));
             strikeZone.setStrikeZoneLocation((int) ((int) neo.getX() + neo.getWidth()));
-
         }
     }
 
-    public void readKeys(Neo neo, StrikeZone strikeZone){
-        // this is for reading keystrokes
-        mainView.setOnKeyPressed(event1 -> {    // event on sisendparameeter
-            switch (event1.getCode())           // kontrolli programmi toimimist kasvõi iga kolme rea tagant
+    private void gameOver() {
+        primaryStage.close();
+         Menu menu = new Menu(); //initialize game menu
+        animationTimer.stop();
+    }
+
+    public void readKeys(Neo neo, StrikeZone strikeZone){ // this is for reading keystrokes
+        mainView.setOnKeyPressed(event1 -> {    // event is a parameter
+            switch (event1.getCode())
             {
                 case A:
                 case LEFT: {
@@ -100,21 +106,18 @@ public class Brawl {
                             }
                         }
                     }
-                    if (smithCounter % 2 == 0) {
+                    if (smithCounter == 1) {
                         addSmith(1);
-                        smithArray[1].setSmithColor(1);
                     }
                 break;
                 }
             }
-
         setOrientation();
-
         });
 
         final long startNanoTime = System.nanoTime();
 
-        new AnimationTimer() {
+        animationTimer = new AnimationTimer() {
             public void handle(long currentNanoTime) {                          // AnimationTimer code borrowed from gamedevelopment.tutsplus.com
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;    // https://gamedevelopment.tutsplus.com/tutorials/introduction-to-javafx-for-game-development--cms-23835
                 for (int i = 0; i < 9; i++) {
@@ -129,13 +132,16 @@ public class Brawl {
                     if (smithArray[i] != null) {
                         if (neo.getBoundsInParent().intersects(smithArray[i].getBoundsInParent())) { // gracious help from Krister Viirsaar
                             text.setText("Game over man, game over.");
-
+                            gameOver();
                         }
                     }
 
                 }
             }
-        }.start();
+        };
+
+        animationTimer.start();
 
     }
+
 }

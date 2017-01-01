@@ -13,4 +13,5 @@ public class NeoShades extends Fighter {
     public void setShadesLocation(int value) {
         setX(value);
     }
+
 }

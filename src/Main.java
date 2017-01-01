@@ -5,6 +5,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Brawl brawl = new Brawl(); //new game
+        Menu menu = new Menu(); //initialize game menu
     }
+
 }

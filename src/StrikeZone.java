@@ -12,4 +12,5 @@ public class StrikeZone extends Neo {
     public void setStrikeZoneLocation(int value) {
         setX(value);
     }
+
 }
