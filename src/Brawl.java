@@ -18,15 +18,14 @@ public class Brawl {
     public static boolean faceLeft = true;
     StrikeZone strikeZone;
     NeoShades neoShades;
-    Smith smith;
+//    Smith smith;
     Smith[] smithArray = new Smith[10];
-    smithArray[0] = new Smith();
 
     public Brawl(){
         System.out.println("Brawl constructor");
         makeBrawl();
         addNeo();
-        addSmith();
+        addSmith(0);
         readKeys(neo, strikeZone);
     }
 
@@ -48,9 +47,10 @@ public class Brawl {
         window.getChildren().add(neoShades);
     }
 
-    public void addSmith(){
-        smith = new Smith();
-        window.getChildren().add(smith);
+    public void addSmith(int i){
+//        smith = new Smith();
+        smithArray[i] = new Smith();
+        window.getChildren().add(smithArray[i]);
     }
 
     public void setOrientation(){
@@ -71,7 +71,6 @@ public class Brawl {
             {
                 case A:
                 case LEFT: {
-                    text.setText("A");
                     neo.fighterMovement(-5);
                     faceLeft = true;
                     strikeZone.fighterMovement(-5);
@@ -79,7 +78,6 @@ public class Brawl {
                 }
                 case D:
                 case RIGHT: {
-                    text.setText("D");
                     neo.fighterMovement(+5);
                     faceLeft = false;
                     strikeZone.fighterMovement(+5);
@@ -87,25 +85,25 @@ public class Brawl {
                 }
                 case ENTER:
                 case SPACE: {
-                    text.setText("Enter");
                     window.getChildren().add(strikeZone); //collision detction
                     mainView.setOnKeyReleased(event -> window.getChildren().remove(strikeZone));
-                    if (smith != null) {
-                        if (strikeZone.getBoundsInParent().intersects(smith.getBoundsInParent())) { // gracious help from Krister Viirsaar
-                            text.setText("Tapsid Smithi");
-                            window.getChildren().remove(smith);
-                            smith = null;
-                            smithCounter++;
-//                            smithSpeed = (int) (1 + smithCounter/3);
-                            System.out.println(smithCounter);
-                            addSmith();
-//                            if (smithCounter == 3) {
-//                                smithSpeed++;
-//                            }
-
+                    for (int i = 0; i < 9; i++) {
+                        if (smithArray[i] != null) {
+                            if (strikeZone.getBoundsInParent().intersects(smithArray[i].getBoundsInParent())) { // gracious help from Krister Viirsaar
+                                text.setText("Tapsid Smithi slotis " + i);
+                                window.getChildren().remove(smithArray[i]);
+                                smithArray[i] = null;
+                                smithCounter++;
+                                // smithSpeed = (int) (1 + smithCounter/3);
+                                System.out.println(smithCounter);
+                                addSmith(i);
+                            }
                         }
                     }
-                    break;
+//                    if (smithCounter % 2 == 0) {
+//                        addSmith(1);
+//                    }
+                break;
                 }
             }
 
@@ -118,22 +116,23 @@ public class Brawl {
         new AnimationTimer() {
             public void handle(long currentNanoTime) {                          // AnimationTimer code borrowed from gamedevelopment.tutsplus.com
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;    // https://gamedevelopment.tutsplus.com/tutorials/introduction-to-javafx-for-game-development--cms-23835
-
-                if (smith != null) {
-                    if (smith.getX() < neo.getX()) {
-                        smith.fighterMovement(+smithSpeed);
-                    } else if (smith.getX() > neo.getX()) {
-                        smith.fighterMovement(-smithSpeed);
+                for (int i = 0; i < 9; i++) {
+                    if (smithArray[i] != null) {
+                        if (smithArray[i].getX() < neo.getX()) {
+                            smithArray[i].fighterMovement(+smithSpeed);
+                        } else if (smithArray[i].getX() > neo.getX()) {
+                            smithArray[i].fighterMovement(-smithSpeed);
+                        }
                     }
-                }
 
-                if (smith != null) {
-                    if (neo.getBoundsInParent().intersects(smith.getBoundsInParent())) { // gracious help from Krister Viirsaar
-                        text.setText("Game over man, game over.");
+                    if (smithArray[i] != null) {
+                        if (neo.getBoundsInParent().intersects(smithArray[i].getBoundsInParent())) { // gracious help from Krister Viirsaar
+                            text.setText("Game over man, game over.");
 
+                        }
                     }
-                }
 
+                }
             }
         }.start();
 
