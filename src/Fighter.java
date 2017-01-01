@@ -2,27 +2,22 @@ import javafx.scene.shape.Rectangle;
 
 public class Fighter extends Rectangle {
 
-    public Fighter () {
-        setWidth(50);
-        setHeight(100);
-        setX(Brawl.fieldLength / 2);
-        setY(Brawl.fieldHeight - getHeight());
-        System.out.println("jõudsin fighteri konstruktorisse");
+    public Fighter () { // this is a fighter; a basis for all the fighting characters
+        setWidth(50); // how fat
+        setHeight(100); // how tall
+        setX(Brawl.fieldLength / 2); // appears in the middle
+        setY(Brawl.fieldHeight - getHeight()); // and on the ground
     }
 
-    public void fighterMovement(int movementMod) {
-        int location = (int) getX();
-        if ((location + movementMod) >= 0 && (location + movementMod) <= Brawl.fieldLength) {
+    public void fighterMovement(int movementMod) { // fighter gets a speed modifier
+        int location = (int) getX(); // location determined
+        if ((location + movementMod) >= 0 && (location + movementMod) <= Brawl.fieldLength) { // move when on the field
             setX(location + movementMod);
-            System.out.println(getX());
-        } else if ((location + movementMod) < 0) {
+        } else if ((location + movementMod) < 0) { // doesn't allow moving off the field
             setX(0);
-            System.out.println(getX());
-        } else if ((location + movementMod) > Brawl.fieldLength) {
+        } else if ((location + movementMod) > Brawl.fieldLength) { // doesn't allow moving off the field
             setX(Brawl.fieldLength - getWidth());
-            System.out.println(getX());
         }
-        //        Math.min(344,5566);
     }
 
 }

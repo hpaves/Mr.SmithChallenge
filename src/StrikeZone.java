@@ -4,12 +4,11 @@ import javafx.scene.paint.Color;
 public class StrikeZone extends Neo {
 
     public StrikeZone () {
-        setX(getX());
+        setX(getX()); //strikezone appears by neo
         setFill(Color.RED);
-        System.out.println("strikezone konstruktor " + getX());
     }
 
-    public void setStrikeZoneLocation(int value) {
+    public void setStrikeZoneLocation(int value) { //strikezone moves with neo
         setX(value);
     }
 

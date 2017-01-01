@@ -1,41 +1,37 @@
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class Menu {
-    public Pane menuContent = new Pane();
-    public Scene menuContentFrame;
-    public Stage menuWindow = new Stage();
+    public Stage menuWindow = new Stage(); // makes main menu window
 
     public Menu(){
         makeMenu();
     }
 
-    public void makeMenu(){
-        menuContent = new Pane();
-        menuContentFrame = new Scene(menuContent, Brawl.fieldLength, Brawl.fieldHeight);
-        menuWindow = new Stage();
-        menuWindow.setScene(menuContentFrame);
-        menuWindow.show();
+    public void makeMenu(){ // method that adds all the main menu items together
+        Pane menuContent = new Pane(); // container for the menu content
+        Scene menuContentFrame = new Scene(menuContent, Brawl.fieldLength, Brawl.fieldHeight); // window resizer, holds content
+        menuWindow.setScene(menuContentFrame); // sets window resizer into the main menu window
+        menuWindow.show(); // displays the window
 
-        Button playButton = new Button("Play");
-            playButton.setLayoutX(Brawl.fieldLength/2 - 50   )      ;
-             playButton.setLayoutY(Brawl.fieldHeight/2);
-        Button quitButton = new Button("Quit");
-            quitButton.setLayoutX(Brawl.fieldLength/2);
-            quitButton.setLayoutY(Brawl.fieldHeight/2);
+        Button playButton = new Button("Play"); // play button
+            playButton.setLayoutX(Brawl.fieldLength/2 - 50); // button location
+            playButton.setLayoutY(Brawl.fieldHeight/2); // button location
+        Button quitButton = new Button("Quit"); // quit button
+            quitButton.setLayoutX(Brawl.fieldLength/2); // button location
+            quitButton.setLayoutY(Brawl.fieldHeight/2); // button location
 
-        menuContent.getChildren().addAll(playButton, quitButton);
+        menuContent.getChildren().addAll(playButton, quitButton); // adds all buttons
 
-        playButton.setOnMouseClicked((event) -> {
-            menuWindow.close();
-            Brawl brawl = new Brawl(); //new game
+        playButton.setOnMouseClicked((event) -> { // when mouse clicks on "play"
+            menuWindow.close(); // close menu window
+            Brawl brawl = new Brawl(); // starts a new game
         });
 
-        quitButton.setOnMouseClicked((event) -> {
-            menuWindow.close();
+        quitButton.setOnMouseClicked((event) -> { // when mouse clicks on "quit"
+            menuWindow.close(); // close menu window
         });
 
     }
