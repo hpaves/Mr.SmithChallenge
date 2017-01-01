@@ -19,6 +19,8 @@ public class Brawl {
     StrikeZone strikeZone;
     NeoShades neoShades;
     Smith smith;
+    Smith[] smithArray = new Smith[10];
+    smithArray[0] = new Smith();
 
     public Brawl(){
         System.out.println("Brawl constructor");
