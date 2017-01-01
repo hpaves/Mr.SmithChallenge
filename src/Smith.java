@@ -15,4 +15,10 @@ public class Smith extends Fighter {
         System.out.println("smith konstruktor " + getX());
     }
 
+    public void setSmithColor (int i) {
+        if (i == 1) {
+            setFill(Color.DARKRED);
+        }
+    }
+
 }

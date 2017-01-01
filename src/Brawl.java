@@ -100,9 +100,10 @@ public class Brawl {
                             }
                         }
                     }
-//                    if (smithCounter % 2 == 0) {
-//                        addSmith(1);
-//                    }
+                    if (smithCounter % 2 == 0) {
+                        addSmith(1);
+                        smithArray[1].setSmithColor(1);
+                    }
                 break;
                 }
             }
