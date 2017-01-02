@@ -19,7 +19,7 @@ public class Brawl { // this is a brawl; the main game engine
     StrikeZone strikeZone; // other variables created
     NeoShades neoShades;
     int neoSpeed = 5;
-    public static boolean faceLeft = true; // neo faces left by default
+    public static boolean faceLeft; // neo faces left by default
 
     Smith[] smithArray = new Smith[10]; // there can be up to 10 smiths in the game simultaneously
     int smithCounter = 0; // zero smiths killed in the beginning of the game
@@ -30,6 +30,8 @@ public class Brawl { // this is a brawl; the main game engine
         addNeo();
         addSmith(0); // adds the very first smith
         readKeys(neo, strikeZone); // makes the game ... read keystrokes
+        faceLeft = true;
+        setOrientation(); // makes neo face in the correct direction
     }
 
     public void makeBrawl(){ // this method completes all steps to generate the game window
@@ -96,6 +98,7 @@ public class Brawl { // this is a brawl; the main game engine
                         if (smithArray[i] != null) { // if smiths are present
                             if (strikeZone.getBoundsInParent().intersects(smithArray[i].getBoundsInParent())) { // if strikezone and smith intesect (gracious help from Krister Viirsaar)
                                 window.getChildren().remove(smithArray[i]); // remove that smith from play
+                                text.setText("Tapsid Smithi slotis " + i);
                                 smithArray[i] = null; // and remove its value
                                 smithCounter++;
                                 System.out.println(smithCounter);
