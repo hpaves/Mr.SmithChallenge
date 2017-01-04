@@ -70,6 +70,7 @@ public class Brawl { // this is a brawl; the main game engine
         animationTimer.stop(); // stops the animation
         primaryStage.close(); // closes the game window
         Menu menu = new Menu(); // opens the menu
+        System.out.println(smithCounter - 1);
     }
 
     public void readKeys(Neo neo, StrikeZone strikeZone){ // this is for reading keystrokes
