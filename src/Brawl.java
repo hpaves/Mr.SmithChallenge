@@ -108,6 +108,7 @@ public class Brawl { // this is a brawl; the main game engine
                     }
                     if (smithCounter == 1) { // if the first smith is killed...
                         addSmith(1); // ...put an additional smith in play
+                        smithCounter++; // and count it (important! it bumps counter to 2 to avoid bugs)
                     }
                 break; // ends the action
                 }

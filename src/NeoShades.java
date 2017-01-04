@@ -1,6 +1,6 @@
 import javafx.scene.paint.Color;
 
-public class NeoShades extends Fighter {
+public class NeoShades extends Neo {
 
     public NeoShades() { // these are neo's shades, which help to see which way he's facing
         setX(getX());  //shades appear on neo
