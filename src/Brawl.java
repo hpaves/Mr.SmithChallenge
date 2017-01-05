@@ -61,11 +61,11 @@ public class Brawl { // this is a brawl; the main game engine
 
     public void setOrientation(){ // this method makes sure neo is facing the correct direction
         if (faceLeft == true) {
-            neoShades.setShadesOrientation((int) neo.getX()); // the shades are on the left
-            strikeZone.setStrikeZoneOrientation((int) ((int) neo.getX() - neo.getWidth())); // strikezone is on the left
+            neoShades.setShadesLocation((int) neo.getX(), (int) (neo.getY() + neo.getHeight()/8)); // the shades are on the left
+            strikeZone.setStrikeZoneLocation((int) ((int) neo.getX() - neo.getWidth()), (int) neo.getY()); // strikezone is on the left
         } else {
-            neoShades.setShadesOrientation((int) (neo.getX() + neo.getWidth() / 2)); // the shades are on the right
-            strikeZone.setStrikeZoneOrientation((int) ((int) neo.getX() + neo.getWidth())); // strikezone is on the right
+            neoShades.setShadesLocation((int) (neo.getX() + neo.getWidth() / 2), (int) (neo.getY() + neo.getHeight()/8)); // the shades are on the right
+            strikeZone.setStrikeZoneLocation((int) ((int) neo.getX() + neo.getWidth()), (int) neo.getY()); // strikezone is on the right
         }
     }
 
@@ -108,17 +108,20 @@ public class Brawl { // this is a brawl; the main game engine
                 case S:
                 case DOWN: {
                     neo.fighterDuck(); // neo ducks
-                    // neoShades.fighterDuck();
-                    //strikeZone.fighterDuck(); // strikezone ducks as well
-                    mainView.setOnKeyReleased(event -> neo.fighterUnDuck());
-                    //mainView.setOnKeyReleased(event -> neoShades.fighterUnDuck());
-                    //mainView.setOnKeyReleased(event -> strikeZone.fighterUnDuck());
+                    mainView.setOnKeyReleased(event -> {
+                        neo.fighterUnDuck();
+                        //  setOrientation();
+                    });
                     break; // ends the action
                 }
                 case ENTER:
                 case SPACE: { //this part is for collision detction
                     window.getChildren().add(strikeZone); // if key pressed, adds strikezone to the game
-                    mainView.setOnKeyReleased(event -> window.getChildren().remove(strikeZone) ); // if key released, removes strikezone
+                    mainView.setOnKeyReleased(event -> {
+                                window.getChildren().remove(strikeZone);
+                                neo.fighterUnDuck();
+                            }
+                        ); // if key released, removes strikezone
                     for (int i = 0; i < 9; i++) { // checks all the smiths one at a time
                         if (smithArray[i] != null) { // if smiths are present
                             if (strikeZone.getBoundsInParent().intersects(smithArray[i].getBoundsInParent())) { // if strikezone and smith intesect (gracious help from Krister Viirsaar)
