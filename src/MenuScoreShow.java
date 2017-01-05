@@ -3,6 +3,7 @@ import com.sun.javafx.tk.Toolkit;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -44,6 +45,13 @@ public class MenuScoreShow {
         backButton.setOnMouseClicked((event) -> { // when mouse clicks on "play"
             menuWindow.close(); // close menu window
             Menu menu = new Menu(); // open main menu
+        });
+
+        backButton.setOnKeyPressed((event) -> { // when mouse clicks on "quit"
+            if(event.getCode() == KeyCode.ENTER) {
+                menuWindow.close(); // close menu window
+                Menu menu = new Menu(); // open main menu
+            }
         });
     }
 

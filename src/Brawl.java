@@ -1,7 +1,6 @@
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Brawl { // this is a brawl; the main game engine
@@ -11,7 +10,6 @@ public class Brawl { // this is a brawl; the main game engine
 
     AnimationTimer animationTimer;
 
-    Text text; // a text block for testing purposes
     public static int fieldLength = 800; // how long the game field is
     public static int fieldHeight = 300; // how high the game field is
 
@@ -23,7 +21,8 @@ public class Brawl { // this is a brawl; the main game engine
     boolean spaceDown = false;
 
     Smith[] smithArray = new Smith[10]; // there can be up to 10 smiths in the game simultaneously
-    public static int smithCounter = 0; // zero smiths killed in the beginning of the game
+    public static int smithCounter;
+    public static int finalSmithCount;
     int smithSpeed = 3;
 
     public ScoreReader scoreReader = new ScoreReader();
@@ -35,7 +34,8 @@ public class Brawl { // this is a brawl; the main game engine
         readKeys(neo, strikeZone); // makes the game ... read keystrokes
         faceLeft = true;
         setOrientation(); // makes neo face in the correct direction
-        smithCounter = 0;
+        smithCounter = 0; // zero smiths killed in the beginning of the game
+        finalSmithCount = 0;
     }
 
     public void makeBrawl(){ // this method completes all steps to generate the game window
@@ -43,8 +43,6 @@ public class Brawl { // this is a brawl; the main game engine
         mainView = new Scene(window, fieldLength, fieldHeight); // determines scene size
         primaryStage.setScene(mainView); // sets scene on the state
         primaryStage.show(); // displays the game contents
-        text = new Text(100, 100, "test"); // testing text
-        window.getChildren().add(text); // adds objects to the interface window
     }
 
     public void addNeo(){ // this method adds all the components of neo
@@ -73,7 +71,8 @@ public class Brawl { // this is a brawl; the main game engine
     private void gameOver() { // this method initializes game over sequence
         animationTimer.stop(); // stops the animation
         primaryStage.close(); // closes the game window
-        if (scoreReader.returnOldHighScore() < smithCounter -1) {
+        finalSmithCount = smithCounter - 1;
+        if (scoreReader.returnOldHighScore() < finalSmithCount) {
             MenuScoreInsert menuScoreInsert = new MenuScoreInsert(); // open high score insertion menu
         } else {
             Menu menu = new Menu(); // opens the main menu
@@ -85,28 +84,26 @@ public class Brawl { // this is a brawl; the main game engine
         mainView.setOnKeyPressed(event1 -> {    // event is a parameter
             switch (event1.getCode()) // listens for the keycodes
             {
-                case A: // game can be played both using wasd...
                 case LEFT: { // ...and arrow keys
                     neo.fighterMovement(-neoSpeed); // moves neo
                     faceLeft = true; // says he faces left
                     strikeZone.fighterMovement(-neoSpeed); // moves strikezone
                     mainView.setOnKeyReleased(event -> neo.fighterUnDuck());
+                    window.getChildren().remove(strikeZone);
                     break; // ends the action
                 }
-                case D:
                 case RIGHT: {
                     neo.fighterMovement(+neoSpeed); // moves neo
                     faceLeft = false; // says doesn't face left, meaning he faces right
                     strikeZone.fighterMovement(+neoSpeed); // moves strikezone
                     mainView.setOnKeyReleased(event -> neo.fighterUnDuck());
+                    window.getChildren().remove(strikeZone);
                     break; // ends the action
                 }
-                case W:
                 case UP: {
                     neo.fighterUnDuck(); // neo unducks
                     break; // ends the action
                 }
-                case S:
                 case DOWN: {
                     neo.fighterDuck(); // neo ducks
                     mainView.setOnKeyReleased(event -> {
@@ -115,7 +112,6 @@ public class Brawl { // this is a brawl; the main game engine
                     });
                     break; // ends the action
                 }
-                case ENTER:
                 case SPACE: { //this part is for collision detction
                     if (spaceDown == false) {
                         spaceDown = true;
@@ -125,7 +121,6 @@ public class Brawl { // this is a brawl; the main game engine
                             if (smithArray[i] != null) { // if smiths are present
                                 if (strikeZone.getBoundsInParent().intersects(smithArray[i].getBoundsInParent())) { // if strikezone and smith intesect (gracious help from Krister Viirsaar)
                                     window.getChildren().remove(smithArray[i]); // remove that smith from play
-                                    text.setText("Tapsid Smithi slotis " + i);
                                     smithArray[i] = null; // and remove its value
                                     smithCounter++;
                                     System.out.println(smithCounter);
@@ -138,12 +133,10 @@ public class Brawl { // this is a brawl; the main game engine
                             smithCounter++; // and count it (important! it bumps counter to 2 to avoid bugs)
                         }
                 }
-
-
-
                     mainView.setOnKeyReleased(event -> {
                                 window.getChildren().remove(strikeZone);
                                 neo.fighterUnDuck();
+                                setOrientation();
                                 spaceDown = false;
                             }
                     ); // if key released, removes strikezone
