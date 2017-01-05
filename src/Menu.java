@@ -34,15 +34,15 @@ public class Menu {
         Button highScoreButton = new Button("High Score"); // play button
             highScoreButton.setLayoutX(menuCenterX - (fontLoader.computeStringWidth(highScoreButton.getText(), highScoreButton.getFont()))/2 - 12); // centering the button text modified by button edges
             highScoreButton.setLayoutY(quitButton.getLayoutY() + 40); // button fixed Y location
-//        Button highScoreInsertButton = new Button("Insert Hight Score"); // quit button
-//            highScoreInsertButton.setLayoutX(menuCenterX - 65); // button location
-//            highScoreInsertButton.setLayoutY(menuCenterY + menuCenterY/4); // button location
+        Button highScoreInsertButton = new Button("Insert Hight Score"); // quit button
+            highScoreInsertButton.setLayoutX(menuCenterX - 65); // button location
+            highScoreInsertButton.setLayoutY(menuCenterY + 100); // button location
         Label nameOfTheGame = new Label("mr. smith");
             nameOfTheGame.setFont(Font.font("Ubuntu Bold", FontWeight.BOLD, 50));
             nameOfTheGame.setLayoutX(menuCenterX - (fontLoader.computeStringWidth(nameOfTheGame.getText(), nameOfTheGame.getFont()))/2); // text centering
             nameOfTheGame.setLayoutY(quitButton.getLayoutY() - 70); // button fixed Y location
 
-        menuContent.getChildren().addAll(nameOfTheGame, playButton, quitButton, highScoreButton); // adds all buttons/text
+        menuContent.getChildren().addAll(nameOfTheGame, playButton, quitButton, highScoreButton, highScoreInsertButton); // adds all buttons/text
 
         playButton.setOnMouseClicked((event) -> { // when mouse clicks on "play"
             menuWindow.close(); // close menu window
@@ -56,6 +56,11 @@ public class Menu {
         highScoreButton.setOnMouseClicked((event) -> { // when mouse clicks on "quit"
             menuWindow.close(); // close menu window
             MenuScoreShow menuScoreShow = new MenuScoreShow();
+        });
+
+        highScoreInsertButton.setOnMouseClicked((event) -> { // when mouse clicks on "quit"
+            menuWindow.close(); // close menu window
+            MenuScoreInsert menuScoreInsert = new MenuScoreInsert();
         });
 
     }

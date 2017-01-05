@@ -22,7 +22,7 @@ public class Brawl { // this is a brawl; the main game engine
     public static boolean faceLeft; // neo faces left by default
 
     Smith[] smithArray = new Smith[10]; // there can be up to 10 smiths in the game simultaneously
-    int smithCounter = 0; // zero smiths killed in the beginning of the game
+    public static int smithCounter = 0; // zero smiths killed in the beginning of the game
     int smithSpeed = 3;
 
     public Brawl(){ // this method launches the game
@@ -70,7 +70,6 @@ public class Brawl { // this is a brawl; the main game engine
         animationTimer.stop(); // stops the animation
         primaryStage.close(); // closes the game window
         Menu menu = new Menu(); // opens the menu
-        System.out.println(smithCounter - 1);
     }
 
     public void readKeys(Neo neo, StrikeZone strikeZone){ // this is for reading keystrokes

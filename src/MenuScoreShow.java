@@ -13,7 +13,6 @@ import java.io.IOException;
 
 public class MenuScoreShow {
     public Stage menuWindow = new Stage(); // makes main menu window
-    public String fileName = "Scores.txt";
     public int highScoreContainer;
     public String highScoreNameContainer;
     FontLoader fontLoader = Toolkit.getToolkit().getFontLoader(); // http://stackoverflow.com/questions/21074024/how-to-get-label-getwidth-in-javafx
@@ -54,7 +53,7 @@ public class MenuScoreShow {
     }
 
     public void ScoreReader() { // http://www.avajava.com/tutorials/lessons/how-do-i-read-a-string-from-a-file-line-by-line.html
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(MenuScoreInsert.fileName))) {
 
             String line;
             int lineNumber = 0;
