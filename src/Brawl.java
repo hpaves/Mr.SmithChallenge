@@ -117,7 +117,7 @@ public class Brawl { // this is a brawl; the main game engine
                 }
                 case ENTER:
                 case SPACE: { //this part is for collision detction
-                    if (spaceDown == false ) {
+                    if (spaceDown == false) {
                         spaceDown = true;
                         window.getChildren().add(strikeZone); // if key pressed, adds strikezone to the game
 
