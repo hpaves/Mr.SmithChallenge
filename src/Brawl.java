@@ -25,6 +25,8 @@ public class Brawl { // this is a brawl; the main game engine
     public static int smithCounter = 0; // zero smiths killed in the beginning of the game
     int smithSpeed = 3;
 
+    public ScoreReader scoreReader = new ScoreReader();
+
     public Brawl(){ // this method launches the game
         makeBrawl();
         addNeo();
@@ -32,6 +34,7 @@ public class Brawl { // this is a brawl; the main game engine
         readKeys(neo, strikeZone); // makes the game ... read keystrokes
         faceLeft = true;
         setOrientation(); // makes neo face in the correct direction
+        smithCounter = 0;
     }
 
     public void makeBrawl(){ // this method completes all steps to generate the game window
@@ -69,7 +72,12 @@ public class Brawl { // this is a brawl; the main game engine
     private void gameOver() { // this method initializes game over sequence
         animationTimer.stop(); // stops the animation
         primaryStage.close(); // closes the game window
-        Menu menu = new Menu(); // opens the menu
+        if (scoreReader.returnOldHighScore() < smithCounter -1) {
+            MenuScoreInsert menuScoreInsert = new MenuScoreInsert(); // open high score insertion menu
+        } else {
+            Menu menu = new Menu(); // opens the main menu
+        }
+//        Menu menu = new Menu(); // opens the main menu
     }
 
     public void readKeys(Neo neo, StrikeZone strikeZone){ // this is for reading keystrokes

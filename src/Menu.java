@@ -21,6 +21,7 @@ public class Menu {
         menuWindow.setScene(menuContentFrame); // sets window resizer into the main menu window
         menuWindow.show(); // displays the window
         FontLoader fontLoader = Toolkit.getToolkit().getFontLoader(); // http://stackoverflow.com/questions/21074024/how-to-get-label-getwidth-in-javafx
+        Label highScoreFailure = new Label();
 
         int menuCenterX = Brawl.fieldLength/2;
         int menuCenterY = Brawl.fieldHeight/2;
@@ -34,15 +35,21 @@ public class Menu {
         Button highScoreButton = new Button("High Score"); // play button
             highScoreButton.setLayoutX(menuCenterX - (fontLoader.computeStringWidth(highScoreButton.getText(), highScoreButton.getFont()))/2 - 12); // centering the button text modified by button edges
             highScoreButton.setLayoutY(quitButton.getLayoutY() + 40); // button fixed Y location
-        Button highScoreInsertButton = new Button("Insert Hight Score"); // quit button
-            highScoreInsertButton.setLayoutX(menuCenterX - 65); // button location
-            highScoreInsertButton.setLayoutY(menuCenterY + 100); // button location
         Label nameOfTheGame = new Label("mr. smith");
             nameOfTheGame.setFont(Font.font("Ubuntu Bold", FontWeight.BOLD, 50));
             nameOfTheGame.setLayoutX(menuCenterX - (fontLoader.computeStringWidth(nameOfTheGame.getText(), nameOfTheGame.getFont()))/2); // text centering
             nameOfTheGame.setLayoutY(quitButton.getLayoutY() - 70); // button fixed Y location
+        if (Brawl.smithCounter -1 > 0 && Brawl.smithCounter -1 < 2) {
+            highScoreFailure.setText("You killed " + (Brawl.smithCounter -1) + " Smith");
+        } else if (Brawl.smithCounter -1 > 1) {
+            highScoreFailure.setText("You killed " + (Brawl.smithCounter - 1) + " Smiths");
+        } else {
+            highScoreFailure.setText("");
+        }
+            highScoreFailure.setLayoutX(menuCenterX - fontLoader.computeStringWidth(highScoreFailure.getText(), highScoreFailure.getFont())/2); // text centering
+            highScoreFailure.setLayoutY(menuCenterY + 80); // button location, from which all other button locations are derived
 
-        menuContent.getChildren().addAll(nameOfTheGame, playButton, quitButton, highScoreButton, highScoreInsertButton); // adds all buttons/text
+        menuContent.getChildren().addAll(nameOfTheGame, playButton, quitButton, highScoreButton, highScoreFailure); // adds all buttons/text
 
         playButton.setOnMouseClicked((event) -> { // when mouse clicks on "play"
             menuWindow.close(); // close menu window
@@ -57,16 +64,6 @@ public class Menu {
             menuWindow.close(); // close menu window
             MenuScoreShow menuScoreShow = new MenuScoreShow();
         });
-
-        highScoreInsertButton.setOnMouseClicked((event) -> { // when mouse clicks on "quit"
-            menuWindow.close(); // close menu window
-            MenuScoreInsert menuScoreInsert = new MenuScoreInsert();
-        });
-
     }
 
-//    public static GetLabelWidth(String labelName) {
-//
-//        int labelWidth = (l.prefWidth(-1)+"/"+l.prefHeight(-1));
-//    }
 }
