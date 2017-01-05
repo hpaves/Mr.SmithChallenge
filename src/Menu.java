@@ -3,6 +3,7 @@ import com.sun.javafx.tk.Toolkit;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -39,12 +40,12 @@ public class Menu {
             nameOfTheGame.setFont(Font.font("Ubuntu Bold", FontWeight.BOLD, 50));
             nameOfTheGame.setLayoutX(menuCenterX - (fontLoader.computeStringWidth(nameOfTheGame.getText(), nameOfTheGame.getFont()))/2); // text centering
             nameOfTheGame.setLayoutY(quitButton.getLayoutY() - 70); // button fixed Y location
-        if (Brawl.smithCounter -1 > 0 && Brawl.smithCounter -1 < 2) {
-            highScoreFailure.setText("You killed " + (Brawl.smithCounter -1) + " Smith");
-        } else if (Brawl.smithCounter -1 > 1) {
-            highScoreFailure.setText("You killed " + (Brawl.smithCounter - 1) + " Smiths");
+        if (Brawl.finalSmithCount > 0 && Brawl.finalSmithCount < 2) {
+            highScoreFailure.setText("You killed " + (Brawl.finalSmithCount) + " Smith");
+        } else if (Brawl.finalSmithCount > 1) {
+            highScoreFailure.setText("You killed " + (Brawl.finalSmithCount) + " Smiths");
         } else {
-            highScoreFailure.setText("");
+            highScoreFailure.setText("Use arrows to move and Spacebar to strike");
         }
             highScoreFailure.setLayoutX(menuCenterX - fontLoader.computeStringWidth(highScoreFailure.getText(), highScoreFailure.getFont())/2); // text centering
             highScoreFailure.setLayoutY(menuCenterY + 80); // button location, from which all other button locations are derived
@@ -63,6 +64,26 @@ public class Menu {
         highScoreButton.setOnMouseClicked((event) -> { // when mouse clicks on "quit"
             menuWindow.close(); // close menu window
             MenuScoreShow menuScoreShow = new MenuScoreShow();
+        });
+
+        playButton.setOnKeyPressed((event) -> { // when mouse clicks on "play"
+            if(event.getCode() == KeyCode.ENTER)  {
+                menuWindow.close(); // close menu window
+                Brawl brawl = new Brawl(); // starts a new game
+            }
+        });
+
+        quitButton.setOnKeyPressed((event) -> { // when mouse clicks on "quit"
+            if(event.getCode() == KeyCode.ENTER) {
+                menuWindow.close(); // close menu window
+            }
+        });
+
+        highScoreButton.setOnKeyPressed((event) -> { // when mouse clicks on "quit"
+            if(event.getCode() == KeyCode.ENTER) {
+                menuWindow.close(); // close menu window
+                MenuScoreShow menuScoreShow = new MenuScoreShow();
+            }
         });
     }
 
