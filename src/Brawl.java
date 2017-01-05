@@ -20,6 +20,7 @@ public class Brawl { // this is a brawl; the main game engine
     NeoShades neoShades;
     int neoSpeed = 5;
     public static boolean faceLeft; // neo faces left by default
+    boolean spaceDown = false;
 
     Smith[] smithArray = new Smith[10]; // there can be up to 10 smiths in the game simultaneously
     public static int smithCounter = 0; // zero smiths killed in the beginning of the game
@@ -110,34 +111,43 @@ public class Brawl { // this is a brawl; the main game engine
                     neo.fighterDuck(); // neo ducks
                     mainView.setOnKeyReleased(event -> {
                         neo.fighterUnDuck();
-                        //  setOrientation();
+                        setOrientation();
                     });
                     break; // ends the action
                 }
                 case ENTER:
                 case SPACE: { //this part is for collision detction
-                    window.getChildren().add(strikeZone); // if key pressed, adds strikezone to the game
+                    if (spaceDown == false ) {
+                        spaceDown = true;
+                        window.getChildren().add(strikeZone); // if key pressed, adds strikezone to the game
+
+                        for (int i = 0; i < 9; i++) { // checks all the smiths one at a time
+                            if (smithArray[i] != null) { // if smiths are present
+                                if (strikeZone.getBoundsInParent().intersects(smithArray[i].getBoundsInParent())) { // if strikezone and smith intesect (gracious help from Krister Viirsaar)
+                                    window.getChildren().remove(smithArray[i]); // remove that smith from play
+                                    text.setText("Tapsid Smithi slotis " + i);
+                                    smithArray[i] = null; // and remove its value
+                                    smithCounter++;
+                                    System.out.println(smithCounter);
+                                    addSmith(i); //adds another smith to replace the fallen one
+                                }
+                            }
+                        }
+                        if (smithCounter == 1) { // if the first smith is killed...
+                            addSmith(1); // ...put an additional smith in play
+                            smithCounter++; // and count it (important! it bumps counter to 2 to avoid bugs)
+                        }
+                }
+
+
+
                     mainView.setOnKeyReleased(event -> {
                                 window.getChildren().remove(strikeZone);
                                 neo.fighterUnDuck();
+                                spaceDown = false;
                             }
-                        ); // if key released, removes strikezone
-                    for (int i = 0; i < 9; i++) { // checks all the smiths one at a time
-                        if (smithArray[i] != null) { // if smiths are present
-                            if (strikeZone.getBoundsInParent().intersects(smithArray[i].getBoundsInParent())) { // if strikezone and smith intesect (gracious help from Krister Viirsaar)
-                                window.getChildren().remove(smithArray[i]); // remove that smith from play
-                                text.setText("Tapsid Smithi slotis " + i);
-                                smithArray[i] = null; // and remove its value
-                                smithCounter++;
-                                System.out.println(smithCounter);
-                                addSmith(i); //adds another smith to replace the fallen one
-                            }
-                        }
-                    }
-                    if (smithCounter == 1) { // if the first smith is killed...
-                        addSmith(1); // ...put an additional smith in play
-                        smithCounter++; // and count it (important! it bumps counter to 2 to avoid bugs)
-                    }
+                    ); // if key released, removes strikezone
+
                 break; // ends the action
                 }
             }
