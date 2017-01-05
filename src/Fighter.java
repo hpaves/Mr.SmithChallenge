@@ -20,4 +20,14 @@ public class Fighter extends Rectangle {
         }
     }
 
+    public void fighterDuck() {
+        int newLocation = (int) (Brawl.fieldHeight - ((getHeight() / 2)));
+        setY(newLocation); // moves the fighter half its height down
+    }
+
+    public void fighterUnDuck() {
+        int oldLocation = (int) (Brawl.fieldHeight - getHeight());
+        setY(oldLocation); // moves the fighter back to its original location
+    }
+
 }

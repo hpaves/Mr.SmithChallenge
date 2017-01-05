@@ -8,7 +8,7 @@ public class StrikeZone extends Neo {
         setFill(Color.RED);
     }
 
-    public void setStrikeZoneLocation(int value) { //strikezone moves with neo
+    public void setStrikeZoneOrientation(int value) { //strikezone moves when neo turns
         setX(value);
     }
 
