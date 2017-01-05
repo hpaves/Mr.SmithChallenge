@@ -23,7 +23,7 @@ public class Brawl { // this is a brawl; the main game engine
     Smith[] smithArray = new Smith[10]; // there can be up to 10 smiths in the game simultaneously
     public static int smithCounter;
     public static int finalSmithCount;
-    int smithSpeed = 3;
+    int smithSpeed = 2;
 
     public ScoreReader scoreReader = new ScoreReader();
 
@@ -77,7 +77,6 @@ public class Brawl { // this is a brawl; the main game engine
         } else {
             Menu menu = new Menu(); // opens the main menu
         }
-//        Menu menu = new Menu(); // opens the main menu
     }
 
     public void readKeys(Neo neo, StrikeZone strikeZone){ // this is for reading keystrokes
@@ -87,16 +86,20 @@ public class Brawl { // this is a brawl; the main game engine
                 case LEFT: { // ...and arrow keys
                     neo.fighterMovement(-neoSpeed); // moves neo
                     faceLeft = true; // says he faces left
-                    strikeZone.fighterMovement(-neoSpeed); // moves strikezone
-                    mainView.setOnKeyReleased(event -> neo.fighterUnDuck());
+                    mainView.setOnKeyReleased(event -> {
+                        neo.fighterUnDuck();
+                        setOrientation();
+                    });
                     window.getChildren().remove(strikeZone);
                     break; // ends the action
                 }
                 case RIGHT: {
                     neo.fighterMovement(+neoSpeed); // moves neo
                     faceLeft = false; // says doesn't face left, meaning he faces right
-                    strikeZone.fighterMovement(+neoSpeed); // moves strikezone
-                    mainView.setOnKeyReleased(event -> neo.fighterUnDuck());
+                    mainView.setOnKeyReleased(event -> {
+                        neo.fighterUnDuck();
+                        setOrientation();
+                    });
                     window.getChildren().remove(strikeZone);
                     break; // ends the action
                 }
@@ -115,6 +118,7 @@ public class Brawl { // this is a brawl; the main game engine
                 case SPACE: { //this part is for collision detction
                     if (spaceDown == false) {
                         spaceDown = true;
+                        setOrientation();
                         window.getChildren().add(strikeZone); // if key pressed, adds strikezone to the game
 
                         for (int i = 0; i < 9; i++) { // checks all the smiths one at a time
