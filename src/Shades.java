@@ -1,10 +1,10 @@
 import javafx.scene.paint.Color;
 
-public class NeoShades extends Neo {
+public class Shades extends Neo {
 
-    public NeoShades() { // these are neo's shades, which help to see which way he's facing
+    public Shades() { // these are neo's shades, which help to see which way he's facing
         setWidth(getWidth() / 2); // shades are always proportional to neo
-        setHeight(getHeight() / 10);
+        setHeight(getHeight() / 10); // shades are always proportional to neo
         setFill(Color.DEEPSKYBLUE);
     }
 

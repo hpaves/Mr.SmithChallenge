@@ -62,7 +62,11 @@ public class MenuScoreInsert  {
     public void ScoreWriter () { // http://stackoverflow.com/questions/2885173/how-to-create-a-file-and-write-to-a-file-in-java
         try{
             PrintWriter writer = new PrintWriter(ScoreReader.fileName, "UTF-8");
-            writer.println(ScoreReader.highScoreNameContainer + ":" + Brawl.finalSmithCount);
+            if (ScoreReader.highScoreNameContainer.equals("")) {
+                writer.println("Anonymous:" + Brawl.finalSmithCount);
+            } else {
+                writer.println(ScoreReader.highScoreNameContainer + ":" + Brawl.finalSmithCount);
+            }
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
