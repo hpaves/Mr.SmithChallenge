@@ -108,7 +108,7 @@ public class Brawl { // this is a brawl; the main game engine
                         neo.fighterUnDuck();
                         setOrientation(); // re-checks orientation after key released
                     });
-//                    window.getChildren().remove(strikeZone);
+                    window.getChildren().remove(strikeZone);
                     break; // ends the action
                 }
                 case RIGHT: {
@@ -118,7 +118,7 @@ public class Brawl { // this is a brawl; the main game engine
                         neo.fighterUnDuck();
                         setOrientation(); // re-checks orientation after key released
                     });
-//                    window.getChildren().remove(strikeZone);
+                    window.getChildren().remove(strikeZone);
                     break; // ends the action
                 }
                 case UP: {
