@@ -60,7 +60,7 @@ public class Brawl { // this is a brawl; the main game engine
     }
 
     public void addBullet(){
-        int bulletRandomizer = (int) (Math.random() * 2); // generate 0 or 1
+        int bulletRandomizer = (int) (Math.random() * 2); // 50% to generate 0
         if (bulletRandomizer == 0) {
             bullet = new Bullet();
             window.getChildren().add(bullet);
@@ -74,6 +74,14 @@ public class Brawl { // this is a brawl; the main game engine
         } else {
             shades.setShadesLocation((int) (neo.getX() + neo.getWidth() / 2), (int) (neo.getY() + neo.getHeight()/8)); // the shades are on the right
             strikeZone.setStrikeZoneLocation((int) ((int) neo.getX() + neo.getWidth()), (int) neo.getY()); // strikezone is on the right
+        }
+    }
+
+    private void gameFasterCheck(){
+        double fastMultplier = 10;
+        if ((smithCounter % fastMultplier) == 0) {
+            smithSpeed++;
+            bulletSpeed++;
         }
     }
 
@@ -129,7 +137,7 @@ public class Brawl { // this is a brawl; the main game engine
                         spaceDown = true;
                         setOrientation();
                         window.getChildren().add(strikeZone); // if key pressed, adds strikezone to the game
-
+                        System.out.println(smithCounter % 3);
                         for (int i = 0; i < 9; i++) { // checks all the smiths one at a time
                             if (smithArray[i] != null) { // if smiths are present
                                 if (strikeZone.getBoundsInParent().intersects(smithArray[i].getBoundsInParent())) { // if strikezone and smith intesect (gracious help from Krister Viirsaar)
@@ -141,6 +149,7 @@ public class Brawl { // this is a brawl; the main game engine
                                     if (bullet == null) {
                                         addBullet();
                                     }
+                                    gameFasterCheck();
                                 }
                             }
                         }
