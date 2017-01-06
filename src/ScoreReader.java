@@ -14,7 +14,7 @@ public class ScoreReader {
             int lineNumber = 0;
 
             while ((line = br.readLine()) != null) { // goes through all the lines
-            String[] score = line.split(":");
+            String[] score = line.split(":"); // splits lines where the colon is
             lineNumber++;
             highScoreNameContainer = score[0];
             highScoreContainer = Integer.parseInt(score[1]);
@@ -35,7 +35,7 @@ public class ScoreReader {
             }
     }
 
-    public int returnOldHighScore() {
+    public int returnOldHighScore() { // returns the current high score
         ScoreReader();
         return highScoreContainer;
     }

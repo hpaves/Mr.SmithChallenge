@@ -25,15 +25,15 @@ public class MenuScoreInsert  {
         menuWindow.setScene(menuContentFrame); // sets window resizer into the main menu window
         menuWindow.show(); // displays the window
 
-        int menuCenterX = Brawl.fieldLength/2;
-        int menuCenterY = Brawl.fieldHeight/2;
+        int menuCenterX = Brawl.fieldLength/2; // finds the center of the window X
+        int menuCenterY = Brawl.fieldHeight/2; // finds the center of the window Y
 
         Label highScoreAnnouncement = new Label("You killed " + (Brawl.finalSmithCount) + " Smiths\nThis is the new high score!\nPlease enter your name below:");
-            highScoreAnnouncement.setTextAlignment(TextAlignment.CENTER);
-            highScoreAnnouncement.setLayoutX(menuCenterX - fontLoader.computeStringWidth(highScoreAnnouncement.getText(), highScoreAnnouncement.getFont())/5); // text centering
+            highScoreAnnouncement.setTextAlignment(TextAlignment.CENTER); // aligns text to center
+            highScoreAnnouncement.setLayoutX(menuCenterX - fontLoader.computeStringWidth(highScoreAnnouncement.getText(), highScoreAnnouncement.getFont())/5); // text centering in the window
             highScoreAnnouncement.setLayoutY(menuCenterY - 60); // button location, from which all other button locations are derived
         TextField textInsertion = new TextField();
-            textInsertion.setLayoutX(menuCenterX - 84); // text centering
+            textInsertion.setLayoutX(menuCenterX - 84); // text centering in the window
             textInsertion.setLayoutY(menuCenterY); // text 40px higher than the middle
         Button submitButton = new Button("Submit"); // play button
             submitButton.setLayoutX(menuCenterX - (fontLoader.computeStringWidth(submitButton.getText(), submitButton.getFont()))/2 - 8); // button centering
@@ -41,19 +41,19 @@ public class MenuScoreInsert  {
 
         menuContent.getChildren().addAll(textInsertion, highScoreAnnouncement, submitButton); // adds all buttons/text
 
-        submitButton.setOnMouseClicked((event) -> { // when mouse clicks on "play"
-            ScoreReader.highScoreNameContainer = textInsertion.getText();
-            ScoreWriter();
+        submitButton.setOnMouseClicked((event) -> { // when mouse clicks on "submit"
+            ScoreReader.highScoreNameContainer = textInsertion.getText(); // looks up what name the player gave
+            ScoreWriter(); // writes high score
             menuWindow.close(); // close menu window
             Menu menu = new Menu(); // open main menu
         });
 
-        submitButton.setOnKeyPressed((event) -> { // when mouse clicks on "quit"
-            if(event.getCode() == KeyCode.ENTER) {
-                ScoreReader.highScoreNameContainer = textInsertion.getText();
-                ScoreWriter();
+        submitButton.setOnKeyPressed((event) -> { // when keyboard hits on "submit"
+            if(event.getCode() == KeyCode.ENTER) { // just the enter keyworks
+                ScoreReader.highScoreNameContainer = textInsertion.getText(); // looks up what name the player gave
+                ScoreWriter(); // writes high score
                 menuWindow.close(); // close menu window
-                Menu menu = new Menu(); // open main menu            }
+                Menu menu = new Menu(); // open main menu
             }
         });
 

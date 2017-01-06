@@ -60,10 +60,10 @@ public class Brawl { // this is a brawl; the main game engine
     }
 
     public void addBullet(){
-        int bulletRandomizer = (int) (Math.random() * 2); // 50% to generate 0
+        int bulletRandomizer = (int) (Math.random() * 3); // 33% to generate 0
         if (bulletRandomizer == 0) {
-            bullet = new Bullet();
-            window.getChildren().add(bullet);
+            bullet = new Bullet(); // creates a bullet
+            window.getChildren().add(bullet); // adds it to the game
         }
     }
 
@@ -89,7 +89,7 @@ public class Brawl { // this is a brawl; the main game engine
     private void gameOver() { // this method initializes game over sequence
         animationTimer.stop(); // stops the animation
         primaryStage.close(); // closes the game window
-        finalSmithCount = smithCounter - 1;
+        finalSmithCount = smithCounter - 1; // we artificially added 1 to the smith count to avoid bugs
         if (scoreReader.returnOldHighScore() < finalSmithCount) {
             MenuScoreInsert menuScoreInsert = new MenuScoreInsert(); // open high score insertion menu
         } else {
@@ -101,14 +101,14 @@ public class Brawl { // this is a brawl; the main game engine
         mainView.setOnKeyPressed(event1 -> {    // event is a parameter
             switch (event1.getCode()) // listens for the keycodes
             {
-                case LEFT: { // ...and arrow keys
-                    neo.fighterMovement(-neoSpeed); // moves neo
+                case LEFT: { // works with arrow keys
+                    neo.fighterMovement(-neoSpeed); // moves neo left
                     faceLeft = true; // says he faces left
                     mainView.setOnKeyReleased(event -> {
                         neo.fighterUnDuck();
-                        setOrientation();
+                        setOrientation(); // re-checks orientation after key released
                     });
-                    window.getChildren().remove(strikeZone);
+//                    window.getChildren().remove(strikeZone);
                     break; // ends the action
                 }
                 case RIGHT: {
@@ -116,9 +116,9 @@ public class Brawl { // this is a brawl; the main game engine
                     faceLeft = false; // says doesn't face left, meaning he faces right
                     mainView.setOnKeyReleased(event -> {
                         neo.fighterUnDuck();
-                        setOrientation();
+                        setOrientation(); // re-checks orientation after key released
                     });
-                    window.getChildren().remove(strikeZone);
+//                    window.getChildren().remove(strikeZone);
                     break; // ends the action
                 }
                 case UP: {
@@ -129,7 +129,7 @@ public class Brawl { // this is a brawl; the main game engine
                     neo.fighterDuck(); // neo ducks
                     mainView.setOnKeyReleased(event -> {
                         neo.fighterUnDuck();
-                        setOrientation();
+                        setOrientation(); // re-checks orientation after key released
                     });
                     break; // ends the action
                 }

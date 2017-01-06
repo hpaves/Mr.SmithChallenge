@@ -9,8 +9,8 @@ public class StrikeZone extends Neo {
     }
 
     public void setStrikeZoneLocation(int valueX, int valueY) { // strikezone moves with neo
-        setX(valueX);
-        setY(valueY);
+        setX(valueX); // on the X axis
+        setY(valueY); // and on the Y axis
     }
 
 }
