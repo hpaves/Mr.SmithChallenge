@@ -78,11 +78,12 @@ public class Brawl { // this is a brawl; the main game engine
     }
 
     private void gameFasterCheck(){
-        double fastMultplier = 10;
-        if ((smithCounter % fastMultplier) == 0) {
-            smithSpeed++;
+        if ((smithCounter % 8) == 0) {
             bulletSpeed++;
         }
+        if ((smithCounter % 12) == 0) {
+            smithSpeed++;
+       }
     }
 
     private void gameOver() { // this method initializes game over sequence
@@ -137,14 +138,12 @@ public class Brawl { // this is a brawl; the main game engine
                         spaceDown = true;
                         setOrientation();
                         window.getChildren().add(strikeZone); // if key pressed, adds strikezone to the game
-                        System.out.println(smithCounter % 3);
                         for (int i = 0; i < 9; i++) { // checks all the smiths one at a time
                             if (smithArray[i] != null) { // if smiths are present
                                 if (strikeZone.getBoundsInParent().intersects(smithArray[i].getBoundsInParent())) { // if strikezone and smith intesect (gracious help from Krister Viirsaar)
                                     window.getChildren().remove(smithArray[i]); // remove that smith from play
                                     smithArray[i] = null; // and remove its value
                                     smithCounter++;
-                                    System.out.println(smithCounter);
                                     addSmith(i); //adds another smith to replace the fallen one
                                     if (bullet == null) {
                                         addBullet();
@@ -197,14 +196,20 @@ public class Brawl { // this is a brawl; the main game engine
                 if (bullet != null) {
                     if (bullet.spawnLeft == true) {
                         bullet.fighterMovement(+bulletSpeed);
-                        if (bullet.getX() == fieldLength - bullet.getWidth()){
+                        if (bullet.getX() > neo.getX()) {
+                            bullet.fighterMovement(+bulletSpeed+10);
+                        }
+                        if (bullet.getX() >= (fieldLength - bullet.getWidth())){
                             window.getChildren().remove(bullet); // remove bullet from play
                             bullet = null; // and remove its value
                         }
                     }
                     if (bullet.spawnLeft == false) {
                         bullet.fighterMovement(-bulletSpeed);
-                        if (bullet.getX() == 0){
+                        if (bullet.getX() < (neo.getX() + neo.getWidth()) ) {
+                            bullet.fighterMovement(-(bulletSpeed+10));
+                        }
+                        if (bullet.getX() <= 0){
                             window.getChildren().remove(bullet); // remove bullet from play
                             bullet = null; // and remove its value
                         }
