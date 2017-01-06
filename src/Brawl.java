@@ -25,14 +25,13 @@ public class Brawl { // this is a brawl; the main game engine
     public static int finalSmithCount;
     int smithSpeed = 2;
     Bullet bullet;
-    int bulletSpeed = 1;
+    int bulletSpeed = 5;
     public ScoreReader scoreReader = new ScoreReader();
 
     public Brawl(){ // this method launches the game
         makeBrawl();
         addNeo();
         addSmith(0); // adds the very first smith
-        addBullet();
         readKeys(neo, strikeZone); // makes the game ... read keystrokes
         faceLeft = true;
         setOrientation(); // makes neo face in the correct direction
@@ -61,8 +60,11 @@ public class Brawl { // this is a brawl; the main game engine
     }
 
     public void addBullet(){
-        bullet = new Bullet();
-        window.getChildren().add(bullet);
+        int bulletRandomizer = (int) (Math.random() * 2); // generate 0 or 1
+        if (bulletRandomizer == 0) {
+            bullet = new Bullet();
+            window.getChildren().add(bullet);
+        }
     }
 
     public void setOrientation(){ // this method makes sure neo is facing the correct direction
@@ -136,6 +138,9 @@ public class Brawl { // this is a brawl; the main game engine
                                     smithCounter++;
                                     System.out.println(smithCounter);
                                     addSmith(i); //adds another smith to replace the fallen one
+                                    if (bullet == null) {
+                                        addBullet();
+                                    }
                                 }
                             }
                         }
@@ -172,34 +177,36 @@ public class Brawl { // this is a brawl; the main game engine
                         }
                     }
 
-                    if (bullet != null) {
-                        if (bullet.spawnLeft == true) {
-                            bullet.fighterMovement(+bulletSpeed);
-                            if (bullet.getX() == fieldLength - bullet.getWidth()){
-                                window.getChildren().remove(bullet); // remove bullet from play
-                                bullet = null; // and remove its value
-                            }
-                        }
-                        if (bullet.spawnLeft == false) {
-                            bullet.fighterMovement(-bulletSpeed);
-                            if (bullet.getX() == 0){
-                                window.getChildren().remove(bullet); // remove bullet from play
-                                bullet = null; // and remove its value
-                            }
-                        }
-                    }
-
                     if (smithArray[i] != null) { // if smiths are present
                         if (neo.getBoundsInParent().intersects(smithArray[i].getBoundsInParent())) { // and neo intersects with smith (gracious help from Krister Viirsaar)
                             gameOver(); // initiate game over sequence
                         }
                     }
 
-                    if (bullet != null) { // if bullet is present
-                        if (neo.getBoundsInParent().intersects(bullet.getBoundsInParent())) { // and neo intersects with bullet
-                            gameOver(); // initiate game over sequence
+                }
+
+                if (bullet != null) {
+                    if (bullet.spawnLeft == true) {
+                        bullet.fighterMovement(+bulletSpeed);
+                        if (bullet.getX() == fieldLength - bullet.getWidth()){
+                            window.getChildren().remove(bullet); // remove bullet from play
+                            bullet = null; // and remove its value
                         }
                     }
+                    if (bullet.spawnLeft == false) {
+                        bullet.fighterMovement(-bulletSpeed);
+                        if (bullet.getX() == 0){
+                            window.getChildren().remove(bullet); // remove bullet from play
+                            bullet = null; // and remove its value
+                        }
+                    }
+                }
+
+                if (bullet != null) { // if bullet is present
+                    if (neo.getBoundsInParent().intersects(bullet.getBoundsInParent())) { // and neo intersects with bullet
+                        gameOver(); // initiate game over sequence
+                    }
+
                 }
             }
         };

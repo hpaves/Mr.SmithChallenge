@@ -45,7 +45,7 @@ public class Menu {
         } else if (Brawl.finalSmithCount > 1) {
             highScoreFailure.setText("You killed " + (Brawl.finalSmithCount) + " Smiths");
         } else {
-            highScoreFailure.setText("Use arrows to move and Spacebar to strike");
+            highScoreFailure.setText("Use arrows to move, Spacebar to strike and Down to dodge bullets");
         }
             highScoreFailure.setLayoutX(menuCenterX - fontLoader.computeStringWidth(highScoreFailure.getText(), highScoreFailure.getFont())/2); // text centering
             highScoreFailure.setLayoutY(menuCenterY + 80); // button location, from which all other button locations are derived
